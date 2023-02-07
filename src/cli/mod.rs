@@ -35,7 +35,10 @@ impl Cli {
         match input_res {
             Ok(res) => {
                 match res {
-                    1 => Excel::request_file(),
+                    1 => {
+                        let excel_file = Excel::new();
+                        excel_file.read();
+                    },
                     2 => println!("Warning: Inactive function"),
                     _ => {
                         eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
