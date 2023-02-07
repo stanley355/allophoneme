@@ -15,8 +15,9 @@ impl Cli {
         return input;
     }
 
-    pub fn welcome_text() {
-        const WELCOME_TEXTS: [&str; 4] = [
+    pub fn start_menu() {
+        const WELCOME_TEXTS: [&str; 5] = [
+            "",
             "Welcome Boss!",
             "How can I help you?",
             "1. Read Excel",
@@ -25,31 +26,26 @@ impl Cli {
         for text in WELCOME_TEXTS {
             println!("{}", text);
         }
-    }
-
-    pub fn welcome_input() {
         let number_input = Self::request_input("Enter a number: ");
         let input_res = number_input.trim().parse::<i32>();
-        Self::welcome_input_validation(input_res);
+        Self::menu_pick_validation(input_res);
     }
 
-    pub fn welcome_input_validation(input_res: Result<i32, ParseIntError>) {
+    pub fn menu_pick_validation(input_res: Result<i32, ParseIntError>) {
         match input_res {
             Ok(res) => {
-                println!("Your input is {}", res);
-
                 match res {
                     1 => Excel::request_file(),
-                    2 => println!("Inactive function"),
+                    2 => println!("Warning: Inactive function"),
                     _ => {
-                        println!("Input limit is: {}", INPUT_LIMIT);
-                        Self::welcome_input();
+                        eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
+                        Self::start_menu();
                     }
                 }
             }
             Err(_) => {
-                println!("Input must be number!");
-                Self::welcome_input();
+                eprintln!("Error: Input must be number!");
+                Self::start_menu();
             }
         }
     }
