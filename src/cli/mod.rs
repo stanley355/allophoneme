@@ -12,7 +12,7 @@ impl Cli {
         let mut input: String = String::new();
         io::stdin().read_line(&mut input).unwrap();
 
-        return input;
+        return input.trim().to_string();
     }
 
     pub fn start_menu() {
