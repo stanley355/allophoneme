@@ -1,10 +1,14 @@
 use calamine::{open_workbook, Reader, Xlsx};
 
-pub struct ExcelReader;
+pub struct Excel {
+    pub path: String,
+    pub sheet: String,
+}
 
-impl ExcelReader {
+impl Excel {
     pub fn read() {
-        let mut excel: Xlsx<_> = open_workbook("../COC.xlsx").unwrap();
+        let path = "../COC.xlsx";
+        let mut excel: Xlsx<_> = open_workbook(path).unwrap();
         if let Some(Ok(r)) = excel.worksheet_range("COC") {
             for row in r.rows() {
                 println!("row={:?}, row[0]={:?}", row, row[0]);

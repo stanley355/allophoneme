@@ -1,6 +1,6 @@
+use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
-use crate::excel::ExcelReader;
 
 const INPUT_LIMIT: i32 = 2;
 
@@ -25,7 +25,6 @@ impl Cli {
         io::stdin().read_line(&mut input).unwrap(); //Read user input
 
         let input_res = input.trim().parse::<i32>();
-
         Self::welcome_input_validation(input_res);
     }
 
@@ -35,14 +34,14 @@ impl Cli {
                 println!("Your input is {}", res);
 
                 match res {
-                    1 => ExcelReader::read(),
+                    1 => Excel::read(),
                     2 => println!("Inactive function"),
                     _ => {
                         println!("Input limit is: {}", INPUT_LIMIT);
                         Self::welcome_input();
                     }
                 }
-            },
+            }
             Err(_) => {
                 println!("Input must be number!");
                 Self::welcome_input();
