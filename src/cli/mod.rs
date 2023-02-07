@@ -7,6 +7,14 @@ const INPUT_LIMIT: i32 = 2;
 pub struct Cli;
 
 impl Cli {
+    pub fn request_input(text: &str) -> String {
+        println!("{}", text);
+        let mut input: String = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+
+        return input;
+    }
+
     pub fn welcome_text() {
         const WELCOME_TEXTS: [&str; 4] = [
             "Welcome Boss!",
@@ -20,11 +28,8 @@ impl Cli {
     }
 
     pub fn welcome_input() {
-        println!("Enter a number:");
-        let mut input: String = String::new();
-        io::stdin().read_line(&mut input).unwrap(); //Read user input
-
-        let input_res = input.trim().parse::<i32>();
+        let number_input = Self::request_input("Enter a number: ");
+        let input_res = number_input.trim().parse::<i32>();
         Self::welcome_input_validation(input_res);
     }
 
@@ -34,7 +39,7 @@ impl Cli {
                 println!("Your input is {}", res);
 
                 match res {
-                    1 => Excel::read(),
+                    1 => Excel::request_file(),
                     2 => println!("Inactive function"),
                     _ => {
                         println!("Input limit is: {}", INPUT_LIMIT);

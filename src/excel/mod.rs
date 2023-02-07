@@ -1,3 +1,4 @@
+use crate::cli::Cli;
 use calamine::{open_workbook, Reader, Xlsx};
 
 pub struct Excel {
@@ -6,6 +7,11 @@ pub struct Excel {
 }
 
 impl Excel {
+    pub fn request_file() {
+        let path = Cli::request_input("Enter file path:");
+        let sheet = Cli::request_input("Enter file sheet:");
+    }
+
     pub fn read() {
         let path = "../COC.xlsx";
         let mut excel: Xlsx<_> = open_workbook(path).unwrap();
