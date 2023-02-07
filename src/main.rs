@@ -1,3 +1,10 @@
+
+mod cli;
+
 fn main() {
-    println!("Hello, world!");
+    cli::welcome::welcome_text();
+    // let args: Vec<String> = env::args().collect();
+
+    // let query = &args[0];
+    // println!("{}", query);
 }
