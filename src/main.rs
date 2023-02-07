@@ -1,5 +1,6 @@
 
 mod cli;
+mod excel;
 
 fn main() {
     cli::Cli::welcome_text();
