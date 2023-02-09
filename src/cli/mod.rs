@@ -36,6 +36,7 @@ impl Cli {
             Ok(res) => {
                 match res {
                     1 => {
+                        println!("You chose 1. Read Excel");
                         let excel_file = Excel::new();
                         excel_file.read();
                     },

@@ -19,7 +19,6 @@ impl Excel {
         println!("The sheet is {:?}", &self);
         let mut excel: Xlsx<_> = open_workbook(self.path).unwrap();
         if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
-            println!("It exists!");
             for row in r.rows() {
                 println!("row={:?}, row[0]={:?}", row, row[0]);
             }
