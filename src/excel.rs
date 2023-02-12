@@ -16,7 +16,7 @@ impl Excel {
     }
 
     pub fn read(self) {
-        println!("The sheet is {:?}", &self);
+        println!("Sheet name: {:?}", &self);
         let mut excel: Xlsx<_> = open_workbook(self.path).unwrap();
         if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
             for row in r.rows() {
