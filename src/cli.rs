@@ -2,7 +2,12 @@ use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-const WELCOME_TEXTS: [&str; 4] = ["", "Welcome Boss!", "How can I help you?", "1. Read Excel"];
+const WELCOME_TEXTS: [&str; 4] = [
+    "",
+    "Welcome Boss!",
+    "How can I help you?",
+    "1. Read Financial Report",
+];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
 pub struct Cli;
@@ -29,11 +34,7 @@ impl Cli {
     pub fn menu_pick_validation(input_res: Result<i32, ParseIntError>) {
         match input_res {
             Ok(res) => match res {
-                1 => {
-                    println!("You chose 1. Read Excel");
-                    let excel_file = Excel::new();
-                    excel_file.read();
-                }
+                1 => Excel::read_financial_report_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
