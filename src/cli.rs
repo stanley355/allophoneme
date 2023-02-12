@@ -2,7 +2,8 @@ use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-const INPUT_LIMIT: i32 = 2;
+const WELCOME_TEXTS: [&str; 4] = ["", "Welcome Boss!", "How can I help you?", "1. Read Excel"];
+const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
 pub struct Cli;
 
@@ -16,14 +17,6 @@ impl Cli {
     }
 
     pub fn start_menu() {
-        const WELCOME_TEXTS: [&str; 5] = [
-            "",
-            "Welcome Boss!",
-            "How can I help you?",
-            "1. Read Excel",
-            "2. Migrate Excel",
-        ];
-
         for text in WELCOME_TEXTS {
             println!("{}", text);
         }
@@ -41,7 +34,6 @@ impl Cli {
                     let excel_file = Excel::new();
                     excel_file.read();
                 }
-                2 => println!("Warning: Inactive function"),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
