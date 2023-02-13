@@ -15,7 +15,7 @@ impl Excel {
 
     pub fn read_financial_report_cli() {
         println!("You chose 1. Read Financial Report");
-        // Find files
+
         println!("Which excel file you want me to read?");
         let excel_files = Self::find_excel_file_in_parent_dir();
         if excel_files.len() > 0 {
@@ -23,8 +23,13 @@ impl Excel {
                 println!("{}. {}", i + 1, excel);
             }
         }
+
         let selected_file = Self::request_file_input_from_existing_files(&excel_files);
-        println!("{}", selected_file);
+
+        let mut workbook : Xlsx<_>= open_workbook(selected_file).unwrap();
+
+        let worksheets = workbook.sheet_names();
+        println!("{:?}", worksheets);
     }
 
     pub fn find_excel_file_in_parent_dir() -> Vec<String> {
