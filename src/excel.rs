@@ -1,16 +1,16 @@
 use crate::cli::Cli;
-use calamine::{open_workbook, Reader, Xlsx};
+use calamine::{open_workbook, DataType, Reader, Xlsx};
 use std::fs;
 
 #[derive(Debug)]
 pub struct Excel {
-    pub path: String,
+    pub workbook: String,
     pub sheet: String,
 }
 
 impl Excel {
-    pub fn new(path: String, sheet: String) -> Self {
-        Self { path, sheet }
+    pub fn new(workbook: String, sheet: String) -> Self {
+        Self { workbook, sheet }
     }
 
     pub fn read_financial_report_cli() {
@@ -25,13 +25,18 @@ impl Excel {
         }
 
         let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
-        
-        println!("Which sheet from {} you want me to read?", selected_workbook);
+
+        println!(
+            "Which sheet from {} you want me to read?",
+            selected_workbook
+        );
         let selected_sheet = Self::request_sheet_input_from_workbook(&selected_workbook);
-        println!("{}", selected_sheet);
+
+        let excel = Excel::new(selected_workbook, selected_sheet);
+        excel.read_workbook_sheet();
     }
 
-    pub fn find_excel_file_in_parent_dir() -> Vec<String> {
+    fn find_excel_file_in_parent_dir() -> Vec<String> {
         let mut excel_files: Vec<String> = Vec::new();
         let parent_dir = fs::read_dir("../").unwrap();
         for dir_entry in parent_dir {
@@ -45,7 +50,7 @@ impl Excel {
         excel_files
     }
 
-    pub fn request_workbook_input_from_existing_workbooks(excel_files: &Vec<String>) -> String {
+    fn request_workbook_input_from_existing_workbooks(excel_files: &Vec<String>) -> String {
         let path = Cli::request_input("Enter a number:");
         let path_number = path.parse::<usize>();
         match path_number {
@@ -67,7 +72,7 @@ impl Excel {
         }
     }
 
-    pub fn request_sheet_input_from_workbook(workbook_name: &String) -> String {
+    fn request_sheet_input_from_workbook(workbook_name: &String) -> String {
         let workbook: Xlsx<_> = open_workbook(workbook_name).unwrap();
         let worksheets = workbook.sheet_names();
 
@@ -95,5 +100,18 @@ impl Excel {
                 "".to_string()
             }
         }
+    }
+
+    fn read_workbook_sheet(self) {
+        let mut excel: Xlsx<_> = open_workbook(&self.workbook).unwrap();
+        if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
+            for (i, row) in r.rows().into_iter().enumerate() {
+                println!("{}. {:?}", i, Self::convert_excel_row_to_table_format(row));
+            }
+        }
+    }
+
+    fn convert_excel_row_to_table_format(row: &[DataType]) -> Vec<String> {
+        row.iter().map(|r| format!("{}", r)).collect()
     }
 }
