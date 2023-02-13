@@ -27,11 +27,15 @@ impl Excel {
         let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
 
         println!(
-            "Which sheet from {} you want me to read?",
-            selected_workbook
+            "Which sheet from {workbook} you want me to read?",
+            workbook = selected_workbook
         );
         let selected_sheet = Self::request_sheet_input_from_workbook(&selected_workbook);
 
+        println!(
+            "I will read '{1}' sheet from '{0}' workbook:",
+            selected_workbook, selected_sheet
+        );
         let excel = Excel::new(selected_workbook, selected_sheet);
         excel.read_workbook_sheet();
     }
