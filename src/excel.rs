@@ -25,6 +25,8 @@ impl Excel {
         }
 
         let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
+        
+        println!("Which sheet from {} you want me to read?", selected_workbook);
         let selected_sheet = Self::request_sheet_input_from_workbook(&selected_workbook);
         println!("{}", selected_sheet);
     }
