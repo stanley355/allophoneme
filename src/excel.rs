@@ -9,25 +9,26 @@ pub struct Excel {
 }
 
 impl Excel {
-    pub fn new() -> Self {
-        let path = Cli::request_input("Enter file path:");
-        let sheet = Cli::request_input("Enter file sheet:");
-
+    pub fn new(path: String, sheet: String) -> Self {
         Self { path, sheet }
     }
 
     pub fn read_financial_report_cli() {
         println!("You chose 1. Read Financial Report");
+        // Find files
         println!("Which excel file you want me to read?");
-        let excel_files = Excel::find_excel_file_in_parent_dir();
-        for (i, excel) in excel_files.iter().enumerate() {
-            println!("{}. {}", i + 1, excel);
+        let excel_files = Self::find_excel_file_in_parent_dir();
+        if excel_files.len() > 0 {
+            for (i, excel) in excel_files.iter().enumerate() {
+                println!("{}. {}", i + 1, excel);
+            }
         }
-        let path = Cli::request_input("Enter a number:");
+        let selected_file = Self::request_file_input_from_existing_files(&excel_files);
+        println!("{}", selected_file);
     }
 
     pub fn find_excel_file_in_parent_dir() -> Vec<String> {
-        let mut excel_files: Vec<String>= Vec::new();
+        let mut excel_files: Vec<String> = Vec::new();
         let parent_dir = fs::read_dir("../").unwrap();
         for dir_entry in parent_dir {
             let file_path = dir_entry.unwrap().path().to_string_lossy().to_string();
@@ -40,12 +41,24 @@ impl Excel {
         excel_files
     }
 
-    pub fn read(self) {
-        println!("Sheet name: {:?}", &self);
-        let mut excel: Xlsx<_> = open_workbook(self.path).unwrap();
-        if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
-            for row in r.rows() {
-                println!("row={:?}, row[0]={:?}", row, row[0]);
+    pub fn request_file_input_from_existing_files(excel_files: &Vec<String>) -> String {
+        let path = Cli::request_input("Enter a number:");
+        let path_number = path.parse::<usize>();
+        match path_number {
+            Ok(num) => {
+                // Validate input
+                let files_len = excel_files.len();
+                if num > files_len {
+                    eprintln!("Error: File doesn't exist!");
+                    Self::request_file_input_from_existing_files(excel_files);
+                }
+
+                excel_files[num - 1].clone()
+            }
+            Err(_) => {
+                eprintln!("Error: Input should be a number");
+                Self::request_file_input_from_existing_files(excel_files);
+                "".to_string()
             }
         }
     }
