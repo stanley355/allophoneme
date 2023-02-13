@@ -24,12 +24,9 @@ impl Excel {
             }
         }
 
-        let selected_file = Self::request_file_input_from_existing_files(&excel_files);
-
-        let mut workbook : Xlsx<_>= open_workbook(selected_file).unwrap();
-
-        let worksheets = workbook.sheet_names();
-        println!("{:?}", worksheets);
+        let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
+        let selected_sheet = Self::request_sheet_input_from_workbook(&selected_workbook);
+        println!("{}", selected_sheet);
     }
 
     pub fn find_excel_file_in_parent_dir() -> Vec<String> {
@@ -46,7 +43,7 @@ impl Excel {
         excel_files
     }
 
-    pub fn request_file_input_from_existing_files(excel_files: &Vec<String>) -> String {
+    pub fn request_workbook_input_from_existing_workbooks(excel_files: &Vec<String>) -> String {
         let path = Cli::request_input("Enter a number:");
         let path_number = path.parse::<usize>();
         match path_number {
@@ -55,14 +52,44 @@ impl Excel {
                 let files_len = excel_files.len();
                 if num > files_len {
                     eprintln!("Error: File doesn't exist!");
-                    Self::request_file_input_from_existing_files(excel_files);
+                    Self::request_workbook_input_from_existing_workbooks(excel_files);
                 }
 
                 excel_files[num - 1].clone()
             }
             Err(_) => {
                 eprintln!("Error: Input should be a number");
-                Self::request_file_input_from_existing_files(excel_files);
+                Self::request_workbook_input_from_existing_workbooks(excel_files);
+                "".to_string()
+            }
+        }
+    }
+
+    pub fn request_sheet_input_from_workbook(workbook_name: &String) -> String {
+        let workbook: Xlsx<_> = open_workbook(workbook_name).unwrap();
+        let worksheets = workbook.sheet_names();
+
+        for (i, sheet) in worksheets.iter().enumerate() {
+            println!("{}. {}", i + 1, sheet);
+        }
+
+        let sheet_input = Cli::request_input("Enter sheet number:");
+        let sheet_number = sheet_input.parse::<usize>();
+
+        match sheet_number {
+            Ok(num) => {
+                // Validate input
+                let sheets_len = worksheets.len();
+                if num > sheets_len {
+                    eprintln!("Error: File doesn't exist!");
+                    Self::request_sheet_input_from_workbook(workbook_name);
+                }
+
+                worksheets[num - 1].clone()
+            }
+            Err(_) => {
+                eprintln!("Error: Input should be a number");
+                Self::request_sheet_input_from_workbook(workbook_name);
                 "".to_string()
             }
         }
