@@ -25,4 +25,30 @@ impl Database {
             .expect("Failed to execute process");
         println!("Diesel setup: {:?}", diesel_setup_output);
     }
+
+    pub fn run_migration() {
+        println!("You chose 3. Run Migration");
+
+        let diesel_cli_output = Command::new("diesel")
+            .args([
+                "migration",
+                "run",
+            ])
+            .output()
+            .expect("Failed to execute process");
+        println!("Migration cli: {:?}", diesel_cli_output);
+    }
+
+    pub fn revert_migration() {
+        println!("You chose 4. Revert Migration");
+
+        let diesel_cli_output = Command::new("diesel")
+            .args([
+                "migration",
+                "redo",
+            ])
+            .output()
+            .expect("Failed to execute process");
+        println!("Migration cli: {:?}", diesel_cli_output);
+    }
 }
