@@ -3,12 +3,14 @@ use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-const WELCOME_TEXTS: [&str; 5] = [
+const WELCOME_TEXTS: [&str; 7] = [
     "",
     "Welcome Boss!",
     "How can I help you?",
     "1. Read Financial Report",
-    "2. Setup Diesel and DB"
+    "2. Setup Diesel and DB",
+    "3. Run Migration",
+    "4. Revert Migration"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
@@ -38,6 +40,8 @@ impl Cli {
             Ok(res) => match res {
                 1 => Excel::read_financial_report_cli(),
                 2 => Database::setup_diesel(),
+                3 => Database::run_migration(),
+                4 => Database::revert_migration(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
