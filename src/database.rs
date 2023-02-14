@@ -4,15 +4,25 @@ use std::process::Command;
 pub struct Database;
 
 impl Database {
-    pub fn setup_diesel_cli() {
+    pub fn setup_diesel() {
         println!("You chose 2. Diesel and DB Setup");
-        Command::new("cargo")
+
+        let diesel_cli_output = Command::new("cargo")
             .args([
-                "install diesel_cli",
+                "install",
+                "diesel_cli",
                 "--no-default-features",
-                "--features postgres",
+                "--features",
+                "postgres",
             ])
             .output()
-            .expect("failed to execute process");
+            .expect("Failed to execute process");
+        println!("Diesel cli: {:?}", diesel_cli_output);
+
+        let diesel_setup_output = Command::new("diesel")
+            .arg("setup")
+            .output()
+            .expect("Failed to execute process");
+        println!("Diesel setup: {:?}", diesel_setup_output);
     }
 }

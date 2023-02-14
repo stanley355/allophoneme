@@ -37,7 +37,7 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_financial_report_cli(),
-                2 => Database::setup_diesel_cli(),
+                2 => Database::setup_diesel(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
