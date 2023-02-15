@@ -41,4 +41,24 @@ impl Database {
             .expect("Failed to execute process");
         println!("Generate Migration: {:?}", generate_migration_output);
     }
+
+    pub fn run_migration() {
+        println!("You chose {}", WELCOME_TEXTS[6]);
+
+        let run_migration_output = Command::new("sqlx")
+            .args(["migrate", "run"])
+            .output()
+            .expect("Failed to execute process");
+        println!("Run Migration: {:?}", run_migration_output);
+    }
+    
+    pub fn revert_migration() {
+        println!("You chose {}", WELCOME_TEXTS[7]);
+
+        let revert_migration_output = Command::new("sqlx")
+            .args(["migrate", "revert"])
+            .output()
+            .expect("Failed to execute process");
+        println!("Revert Migration: {:?}", revert_migration_output);
+    }
 }

@@ -1,0 +1,8 @@
+-- Add up migration script here
+CREATE TABLE stocks (
+  id SERIAL PRIMARY KEY,
+  code VARCHAR(10) NOT NULL,
+  company_name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
