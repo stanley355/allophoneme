@@ -1,5 +1,5 @@
-use std::process::Command;
 use crate::cli::WELCOME_TEXTS;
+use std::process::Command;
 
 #[derive(Debug)]
 
@@ -8,49 +8,24 @@ pub struct Database;
 impl Database {
     pub fn setup_db_cli() {
         println!("You chose {}", WELCOME_TEXTS[4]);
-
-        let diesel_cli_output = Command::new("cargo")
+        println!("Setting up DB CLI...");
+        let cli_setup_output = Command::new("cargo")
             .args([
                 "install",
-                "diesel_cli",
+                "sqlx-cli",
                 "--no-default-features",
                 "--features",
-                "postgres",
+                "native-tls,postgres",
             ])
             .output()
             .expect("Failed to execute process");
-        println!("Diesel cli: {:?}", diesel_cli_output);
+        println!("DB CLI Setup: {:?}", cli_setup_output);
 
-        let diesel_setup_output = Command::new("diesel")
-            .arg("setup")
+        println!("Setting up Database...");
+        let db_creation_output = Command::new("sqlx")
+            .args(["database", "create"])
             .output()
             .expect("Failed to execute process");
-        println!("Diesel setup: {:?}", diesel_setup_output);
-    }
-
-    pub fn run_migration() {
-        println!("You chose {}", WELCOME_TEXTS[5]);
-
-        let diesel_cli_output = Command::new("diesel")
-            .args([
-                "migration",
-                "run",
-            ])
-            .output()
-            .expect("Failed to execute process");
-        println!("Migration cli: {:?}", diesel_cli_output);
-    }
-
-    pub fn revert_migration() {
-        println!("You chose {}", WELCOME_TEXTS[6]);
-
-        let diesel_cli_output = Command::new("diesel")
-            .args([
-                "migration",
-                "redo",
-            ])
-            .output()
-            .expect("Failed to execute process");
-        println!("Migration cli: {:?}", diesel_cli_output);
+        println!("DB Creation Setup: {:?}", db_creation_output);
     }
 }

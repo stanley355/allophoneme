@@ -40,8 +40,6 @@ impl Cli {
             Ok(res) => match res {
                 1 => Excel::read_financial_report_cli(),
                 2 => Database::setup_db_cli(),
-                3 => Database::run_migration(),
-                4 => Database::revert_migration(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
