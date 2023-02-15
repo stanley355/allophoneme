@@ -1,11 +1,13 @@
 use std::process::Command;
+use crate::cli::WELCOME_TEXTS;
 
 #[derive(Debug)]
+
 pub struct Database;
 
 impl Database {
-    pub fn setup_diesel() {
-        println!("You chose 2. Diesel and DB Setup");
+    pub fn setup_db_cli() {
+        println!("You chose {}", WELCOME_TEXTS[4]);
 
         let diesel_cli_output = Command::new("cargo")
             .args([
@@ -27,7 +29,7 @@ impl Database {
     }
 
     pub fn run_migration() {
-        println!("You chose 3. Run Migration");
+        println!("You chose {}", WELCOME_TEXTS[5]);
 
         let diesel_cli_output = Command::new("diesel")
             .args([
@@ -40,7 +42,7 @@ impl Database {
     }
 
     pub fn revert_migration() {
-        println!("You chose 4. Revert Migration");
+        println!("You chose {}", WELCOME_TEXTS[6]);
 
         let diesel_cli_output = Command::new("diesel")
             .args([

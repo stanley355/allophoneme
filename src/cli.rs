@@ -3,12 +3,12 @@ use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-const WELCOME_TEXTS: [&str; 7] = [
+pub const WELCOME_TEXTS: [&str; 7] = [
     "",
     "Welcome Boss!",
     "How can I help you?",
     "1. Read Financial Report",
-    "2. Setup Diesel and DB",
+    "2. Setup DB and DB CLI",
     "3. Run Migration",
     "4. Revert Migration"
 ];
@@ -39,7 +39,7 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_financial_report_cli(),
-                2 => Database::setup_diesel(),
+                2 => Database::setup_db_cli(),
                 3 => Database::run_migration(),
                 4 => Database::revert_migration(),
                 _ => {

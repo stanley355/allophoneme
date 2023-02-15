@@ -1,4 +1,4 @@
-use crate::cli::Cli;
+use crate::cli::{Cli, WELCOME_TEXTS};
 use calamine::{open_workbook, DataType, Reader, Xlsx};
 use std::fs;
 
@@ -14,7 +14,7 @@ impl Excel {
     }
 
     pub fn read_financial_report_cli() {
-        println!("You chose 1. Read Financial Report");
+        println!("You chose {}", WELCOME_TEXTS[3]);
 
         println!("Which excel file you want me to read?");
         let excel_files = Self::find_excel_file_in_parent_dir();
