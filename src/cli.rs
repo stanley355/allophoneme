@@ -9,7 +9,7 @@ pub const WELCOME_TEXTS: [&str; 7] = [
     "How can I help you?",
     "1. Read Financial Report",
     "2. Setup DB and DB CLI",
-    "3. Run Migration",
+    "3. Generate Migration",
     "4. Revert Migration"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
@@ -40,6 +40,7 @@ impl Cli {
             Ok(res) => match res {
                 1 => Excel::read_financial_report_cli(),
                 2 => Database::setup_db_cli(),
+                3 => Database::generate_migration(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();

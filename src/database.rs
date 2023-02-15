@@ -1,4 +1,4 @@
-use crate::cli::WELCOME_TEXTS;
+use crate::cli::{Cli, WELCOME_TEXTS};
 use std::process::Command;
 
 #[derive(Debug)]
@@ -27,5 +27,18 @@ impl Database {
             .output()
             .expect("Failed to execute process");
         println!("DB Creation Setup: {:?}", db_creation_output);
+    }
+
+    pub fn generate_migration() {
+        println!("You chose {}", WELCOME_TEXTS[5]);
+
+        let migration_name = Cli::request_input("What's the name of the migration?");
+        let formatted_name = migration_name.to_lowercase().replace(" ", "_");
+
+        let generate_migration_output = Command::new("sqlx")
+            .args(["migrate", "add", "-r", &formatted_name])
+            .output()
+            .expect("Failed to execute process");
+        println!("Generate Migration: {:?}", generate_migration_output);
     }
 }
