@@ -110,7 +110,7 @@ impl Excel {
         let mut excel: Xlsx<_> = open_workbook(&self.workbook).unwrap();
         if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
             for (i, row) in r.rows().into_iter().enumerate() {
-                println!("{}. {:?}", i, Self::convert_excel_row_to_table_format(row));
+                println!("{}. {:?}", i + 1, Self::convert_excel_row_to_table_format(row));
             }
         }
     }
