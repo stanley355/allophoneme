@@ -1,7 +1,9 @@
 use crate::cli::{Cli, WELCOME_TEXTS};
-use std::process::Command;
 use dotenv::dotenv;
+use sqlx::postgres::{PgPoolOptions, PgRow};
+use sqlx::{Pool, Postgres};
 use std::env;
+use std::process::Command;
 
 #[derive(Debug)]
 
@@ -53,7 +55,7 @@ impl Database {
             .expect("Failed to execute process");
         println!("Run Migration: {:?}", run_migration_output);
     }
-    
+
     pub fn revert_migration() {
         println!("You chose {}", WELCOME_TEXTS[7]);
 
@@ -62,5 +64,14 @@ impl Database {
             .output()
             .expect("Failed to execute process");
         println!("Revert Migration: {:?}", revert_migration_output);
+    }
+
+    pub async fn create_pg_pool() -> Pool<Postgres> {
+        dotenv().ok();
+        let database_url = env::var("DATABASE_URL").unwrap();
+        PgPoolOptions::new()
+            .connect(&database_url)
+            .await
+            .expect("Fail to connect to postgres")
     }
 }
