@@ -1,5 +1,7 @@
 use crate::cli::{Cli, WELCOME_TEXTS};
 use std::process::Command;
+use dotenv::dotenv;
+use std::env;
 
 #[derive(Debug)]
 

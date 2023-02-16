@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 calamine = "0.19.1"
+dotenv = "0.15.0"
 sqlx = { version = "0.6", features = [ "macros", "migrate", "postgres", "runtime-actix-native-tls" ] }
