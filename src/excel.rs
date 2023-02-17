@@ -1,8 +1,6 @@
 use crate::cli::{Cli, WELCOME_TEXTS};
-use crate::database::Database;
 use calamine::{open_workbook, DataType, Reader, Xlsx};
 use std::fs;
-use tokio::runtime::Runtime;
 
 #[derive(Debug)]
 pub struct Excel {
@@ -15,7 +13,7 @@ impl Excel {
         Self { workbook, sheet }
     }
 
-    pub fn read_financial_report_cli() {
+    pub fn read_excel_cli() {
         println!("You chose {}", WELCOME_TEXTS[3]);
 
         println!("Which excel file you want me to read?");
@@ -123,25 +121,5 @@ impl Excel {
 
     fn convert_excel_row_to_table_format(row: &[DataType]) -> Vec<String> {
         row.iter().map(|r| format!("{}", r)).collect()
-    }
-
-    pub fn insert_postgres_data() {
-        let rt = Runtime::new().unwrap();
-
-        rt.block_on(async {
-            let pool = Database::create_pg_pool().await;
-            let query = sqlx::query(
-                "INSERT INTO stocks(code, company_name, sector, subsector, stock_outstanding) 
-            VALUES ('TEST','cOMPANY TEST', 'SECTOR TEST', 'SUBSECTOR TEST', 100) returning id, code, company_name;",
-            )
-            .execute(&pool)
-            .await
-            .expect("Fail to insert");
-
-
-            // let sec_query =sqlx::query("SELECT * FROM stocks;").fetch(&pool);
-
-            println!("Hi {:?}", query);
-        });
     }
 }
