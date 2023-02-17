@@ -1,4 +1,5 @@
 mod cli;
+mod allophone;
 mod excel;
 
 fn main() {

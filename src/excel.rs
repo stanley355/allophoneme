@@ -40,7 +40,7 @@ impl Excel {
         excel.read_workbook_sheet();
     }
 
-    fn find_excel_file_in_parent_dir() -> Vec<String> {
+    pub fn find_excel_file_in_parent_dir() -> Vec<String> {
         let mut excel_files: Vec<String> = Vec::new();
         let parent_dir = fs::read_dir("../").unwrap();
         for dir_entry in parent_dir {
@@ -54,7 +54,7 @@ impl Excel {
         excel_files
     }
 
-    fn request_workbook_input_from_existing_workbooks(excel_files: &Vec<String>) -> String {
+    pub fn request_workbook_input_from_existing_workbooks(excel_files: &Vec<String>) -> String {
         let path = Cli::request_input("Enter a number:");
         let path_number = path.parse::<usize>();
         match path_number {
@@ -76,7 +76,7 @@ impl Excel {
         }
     }
 
-    fn request_sheet_input_from_workbook(workbook_name: &String) -> String {
+    pub fn request_sheet_input_from_workbook(workbook_name: &String) -> String {
         let workbook: Xlsx<_> = open_workbook(workbook_name).unwrap();
         let worksheets = workbook.sheet_names();
 

@@ -1,12 +1,14 @@
+use crate::allophone::Allophone;
 use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-pub const WELCOME_TEXTS: [&str; 4] = [
+pub const WELCOME_TEXTS: [&str; 5] = [
     "",
     "Welcome Boss!",
     "How can I help you?",
-    "1. Read Excel Report",
+    "1. Read Excel Sheet",
+    "2. Encode words to IPA",
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
@@ -35,6 +37,7 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_excel_cli(),
+                2 => Allophone::encode_ipa_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
