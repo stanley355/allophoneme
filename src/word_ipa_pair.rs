@@ -1,11 +1,17 @@
 use crate::cli::WELCOME_TEXTS;
 use crate::excel::Excel;
+
+#[derive(Debug)]
 pub struct WordIpaPair {
     pub word: String,
-    pub ipa: String
+    pub ipa: String,
 }
 
 impl WordIpaPair {
+    pub fn new(word: String, ipa: String) -> Self {
+        Self { word, ipa }
+    }
+
     pub fn encode_ipa_cli() {
         println!("You chose {}", WELCOME_TEXTS[4]);
         println!("Which excel file you want me to read?");
@@ -26,9 +32,11 @@ impl WordIpaPair {
             selected_workbook, selected_sheet
         );
         let excel = Excel::new(selected_workbook, selected_sheet);
-        // excel.read_workb
-        let b = excel.fetch_worksheet_data();
-        println!("{:?}", b);
+        let ws_data = excel.fetch_worksheet_data();
+
+        let c = ws_data
+            .into_iter()
+            .map(|data| Self::new(data[0].clone(), data[1].clone()));
+        println!("{:?}", c);
     }
 }
-

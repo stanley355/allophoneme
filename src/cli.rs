@@ -1,4 +1,3 @@
-use crate::allophone::Allophone;
 use crate::excel::Excel;
 use crate::word_ipa_pair::WordIpaPair;
 use std::io;
