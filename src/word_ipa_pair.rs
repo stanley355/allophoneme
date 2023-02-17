@@ -31,6 +31,26 @@ impl WordIpaPair {
             "I will read '{1}' sheet from '{0}' workbook:",
             selected_workbook, selected_sheet
         );
+
+        let ipa_encode_pair_list = Self::get_ipa_encoding_pair_list(selected_workbook.clone());
+    }
+
+    fn get_ipa_encoding_pair_list(selected_workbook: String) -> Vec<WordIpaPair> {
+        let excel_ipa = Excel::new(selected_workbook.clone(), String::from("IPA"));
+        let ipa_data = excel_ipa.fetch_worksheet_data();
+
+        let ipa_encode_pair_list: Vec<WordIpaPair> = ipa_data
+            .into_iter()
+            .map(|data| Self::new(data[0].clone(), data[1].clone()))
+            .collect();
+
+        ipa_encode_pair_list
+    }
+
+    fn get_word_ipa_pair_list(
+        selected_workbook: String,
+        selected_sheet: String,
+    ) -> Vec<WordIpaPair> {
         let excel = Excel::new(selected_workbook, selected_sheet);
         let ws_data = excel.fetch_worksheet_data();
 
@@ -38,8 +58,7 @@ impl WordIpaPair {
             .into_iter()
             .map(|data| Self::new(data[0].clone(), data[1].clone()))
             .collect();
-        println!("{:?}", word_ipa_pair_list);
-    }
 
-    
+        word_ipa_pair_list
+    }
 }
