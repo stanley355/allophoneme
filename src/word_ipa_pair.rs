@@ -38,7 +38,10 @@ impl WordIpaPair {
         let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
 
         let encoded_list = Self::encode_all_word_ipa(ipa_encoding_pair_list, word_ipa_pair_list);
-        println!("{:?}", encoded_list);
+
+        for (i, encoded) in encoded_list.iter().enumerate() {
+            println!("{}, {:?}", i + 1, encoded);
+        }
     }
 
     pub fn encode_ipa_from_excel(

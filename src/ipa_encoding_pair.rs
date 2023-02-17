@@ -27,15 +27,13 @@ impl IpaEncodingPair {
         word_ipa: String,
         ipa_encode_pair_list: &Vec<IpaEncodingPair>,
     ) -> String {
-        let mut base_word_ipa = word_ipa;
+        let mut arr_word_ipa: Vec<String> = Vec::new();
         for pair in ipa_encode_pair_list {
-            if base_word_ipa.contains(&pair.ipa) {
-                base_word_ipa = base_word_ipa.replace(&pair.ipa, &pair.encoding);
-            } else {
-                base_word_ipa = base_word_ipa.replace(&pair.ipa, "0");
+            if word_ipa.contains(&pair.ipa) {
+                arr_word_ipa.push(pair.encoding.clone())
             }
         }
 
-        base_word_ipa
+        arr_word_ipa.join("-")
     }
 }
