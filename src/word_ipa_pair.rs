@@ -34,9 +34,12 @@ impl WordIpaPair {
         let excel = Excel::new(selected_workbook, selected_sheet);
         let ws_data = excel.fetch_worksheet_data();
 
-        let c = ws_data
+        let word_ipa_pair_list: Vec<WordIpaPair> = ws_data
             .into_iter()
-            .map(|data| Self::new(data[0].clone(), data[1].clone()));
-        println!("{:?}", c);
+            .map(|data| Self::new(data[0].clone(), data[1].clone()))
+            .collect();
+        println!("{:?}", word_ipa_pair_list);
     }
+
+    
 }
