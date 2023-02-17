@@ -1,6 +1,6 @@
 use crate::cli::WELCOME_TEXTS;
 use crate::excel::Excel;
-use crate::ipa_encoding_pair::IpaEncodingPair;
+use crate::ipa_encoding_pair::{self, IpaEncodingPair};
 
 #[derive(Debug)]
 pub struct WordIpaPair {
@@ -33,12 +33,12 @@ impl WordIpaPair {
             selected_workbook, selected_sheet
         );
 
-        let ipa_encode_pair_list =
+        let ipa_encoding_pair_list =
             IpaEncodingPair::get_ipa_encoding_pair_list(selected_workbook.clone());
         let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
 
-        let test = IpaEncodingPair::encode_matching_ipa(word_ipa_pair_list[0].word_ipa.clone(), ipa_encode_pair_list);
-        println!("{}", test);
+        let encoded_list = Self::encode_all_word_ipa(ipa_encoding_pair_list, word_ipa_pair_list);
+        println!("{:?}", encoded_list);
     }
 
     fn get_word_ipa_pair_list(
@@ -54,5 +54,21 @@ impl WordIpaPair {
             .collect();
 
         word_ipa_pair_list
+    }
+
+    fn encode_all_word_ipa(
+        ipa_encoding_pair_list: Vec<IpaEncodingPair>,
+        word_ipa_pair_list: Vec<WordIpaPair>,
+    ) -> Vec<WordIpaPair> {
+        word_ipa_pair_list
+            .into_iter()
+            .map(|pair: WordIpaPair| WordIpaPair {
+                word: pair.word,
+                word_ipa: IpaEncodingPair::encode_matching_ipa(
+                    pair.word_ipa,
+                    &ipa_encoding_pair_list,
+                ),
+            })
+            .collect()
     }
 }

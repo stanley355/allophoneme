@@ -25,7 +25,7 @@ impl IpaEncodingPair {
 
     pub fn encode_matching_ipa(
         word_ipa: String,
-        ipa_encode_pair_list: Vec<IpaEncodingPair>,
+        ipa_encode_pair_list: &Vec<IpaEncodingPair>,
     ) -> String {
         let mut base_word_ipa = word_ipa;
         for pair in ipa_encode_pair_list {
