@@ -5,7 +5,7 @@ use crate::{
 #[derive(Debug)]
 pub struct Allophone {
     pub word: String,
-    pub res: f32,
+    pub similarity: f32,
 }
 
 impl Allophone {
@@ -46,7 +46,7 @@ impl Allophone {
             .into_iter()
             .map(|pair| Allophone {
                 word: pair.word,
-                res: levenshtein_distance(&word_ipa.word_ipa, &pair.word_ipa),
+                similarity: levenshtein_distance(&word_ipa.word_ipa, &pair.word_ipa),
             })
             .collect()
     }
