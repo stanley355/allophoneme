@@ -22,6 +22,9 @@ impl Excel {
             for (i, excel) in excel_files.iter().enumerate() {
                 println!("{}. {}", i + 1, excel);
             }
+        } else {
+            println!("File not found, returning to main menu");
+            Cli::start_menu();
         }
 
         let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
