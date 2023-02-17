@@ -2,6 +2,8 @@
 
 Machine Learning Model to find Allophones and Phonemes
 
+![allophoneme](https://user-images.githubusercontent.com/53996155/219663285-097e7a15-790d-49f6-9d7f-16854be477da.png)
+
 ## Purpose
 
 - This project is intended to help linguist find Allophones and Phonemes easier.
