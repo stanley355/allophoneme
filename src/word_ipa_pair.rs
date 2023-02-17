@@ -1,15 +1,16 @@
 use crate::cli::WELCOME_TEXTS;
 use crate::excel::Excel;
+use crate::ipa_encoding_pair::IpaEncodingPair;
 
 #[derive(Debug)]
 pub struct WordIpaPair {
     pub word: String,
-    pub ipa: String,
+    pub word_ipa: String,
 }
 
 impl WordIpaPair {
-    pub fn new(word: String, ipa: String) -> Self {
-        Self { word, ipa }
+    pub fn new(word: String, word_ipa: String) -> Self {
+        Self { word, word_ipa }
     }
 
     pub fn encode_ipa_cli() {
@@ -32,19 +33,9 @@ impl WordIpaPair {
             selected_workbook, selected_sheet
         );
 
-        let ipa_encode_pair_list = Self::get_ipa_encoding_pair_list(selected_workbook.clone());
-    }
-
-    fn get_ipa_encoding_pair_list(selected_workbook: String) -> Vec<WordIpaPair> {
-        let excel_ipa = Excel::new(selected_workbook.clone(), String::from("IPA"));
-        let ipa_data = excel_ipa.fetch_worksheet_data();
-
-        let ipa_encode_pair_list: Vec<WordIpaPair> = ipa_data
-            .into_iter()
-            .map(|data| Self::new(data[0].clone(), data[1].clone()))
-            .collect();
-
-        ipa_encode_pair_list
+        let ipa_encode_pair_list =
+            IpaEncodingPair::get_ipa_encoding_pair_list(selected_workbook.clone());
+        let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
     }
 
     fn get_word_ipa_pair_list(
