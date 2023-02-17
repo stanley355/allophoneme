@@ -1,4 +1,4 @@
-use crate::cli::WELCOME_TEXTS;
+use crate::cli::{WELCOME_TEXTS, Cli};
 use crate::excel::Excel;
 use crate::ipa_encoding_pair::IpaEncodingPair;
 

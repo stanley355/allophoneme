@@ -1,5 +1,5 @@
 use crate::{
-    cli::WELCOME_TEXTS, excel::Excel, levenshtein::levenshtein_distance, word_ipa_pair::WordIpaPair,
+    cli::{WELCOME_TEXTS, Cli}, excel::Excel, levenshtein::levenshtein_distance, word_ipa_pair::WordIpaPair,
 };
 
 #[derive(Debug)]
