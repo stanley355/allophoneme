@@ -122,4 +122,17 @@ impl Excel {
     fn convert_excel_row_to_table_format(row: &[DataType]) -> Vec<String> {
         row.iter().map(|r| format!("{}", r)).collect()
     }
+
+    pub fn fetch_worksheet_data(self) -> Vec<Vec<String>> {
+        let mut worksheet_data = Vec::new();
+        let mut excel: Xlsx<_> = open_workbook(&self.workbook).unwrap();
+        if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
+            for row in r.rows() {
+                let excel_row = Self::convert_excel_row_to_table_format(row);
+                worksheet_data.push(excel_row);
+            }
+        }
+
+        worksheet_data
+    }
 }

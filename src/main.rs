@@ -1,6 +1,7 @@
 mod cli;
 mod allophone;
 mod excel;
+mod word_ipa_pair;
 
 fn main() {
     cli::Cli::start_menu();
