@@ -36,6 +36,9 @@ impl WordIpaPair {
         let ipa_encode_pair_list =
             IpaEncodingPair::get_ipa_encoding_pair_list(selected_workbook.clone());
         let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
+
+        let test = IpaEncodingPair::encode_matching_ipa(word_ipa_pair_list[0].word_ipa.clone(), ipa_encode_pair_list);
+        println!("{}", test);
     }
 
     fn get_word_ipa_pair_list(

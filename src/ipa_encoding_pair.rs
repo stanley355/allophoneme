@@ -23,12 +23,19 @@ impl IpaEncodingPair {
         ipa_encode_pair_list
     }
 
-    pub fn check_matching_ipa(word_ipa: String, ipa_encode_pair_list: Vec<IpaEncodingPair>) {
+    pub fn encode_matching_ipa(
+        word_ipa: String,
+        ipa_encode_pair_list: Vec<IpaEncodingPair>,
+    ) -> String {
         let mut base_word_ipa = word_ipa;
         for pair in ipa_encode_pair_list {
             if base_word_ipa.contains(&pair.ipa) {
-                base_word_ipa.replace(&pair.ipa, &pair.encoding);
+                base_word_ipa = base_word_ipa.replace(&pair.ipa, &pair.encoding);
+            } else {
+                base_word_ipa = base_word_ipa.replace(&pair.ipa, "0");
             }
         }
+
+        base_word_ipa
     }
 }
