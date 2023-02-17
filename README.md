@@ -45,6 +45,7 @@ It's pretty simple
 
 ### TODO
 - [ ] Provide menu that loops the words available and user can choose which words they wanna target
+- [ ] Example result on readme
 - [ ] Convert this repo into desktop app using Tauri
 
 ### Any PR is welcome!
