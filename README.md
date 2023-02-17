@@ -4,9 +4,14 @@ Machine Learning Model to find Allophones and Phonemes
 
 ## Purpose
 
-This project is intended to help linguist find Allophones and Phonemes easier.
-So far I've seen that linguists are strugglin to find Allophone and Phonemes manually
-hence I tried to make their work easier by creating this app.
+- This project is intended to help linguist find Allophones and Phonemes easier.
+  So far I've seen that linguists are strugglin to find Allophone and Phonemes manually
+  hence I tried to make their work easier by creating this repo.
+
+- This repo will provide linguist to encode the IPA (International Phonetic Alphabet) with
+  their own customized encoding and from that encoding linguist can find Allophones
+  or Phonemes much easier by looking at sorted words which are similar to the target word.
+  The similarity rate is based on their IPA encoding, not based on their letters.
 
 ## Allophones and Phonemes
 
@@ -19,7 +24,21 @@ Allophones, on the other hand, are variations of phonemes that are used in diffe
 Overall, understanding the concepts of phonemes and allophones is important for analyzing and understanding the sound systems of languages, as well as for developing and teaching language-related technologies such as speech recognition and synthesis.
 
 ## Installation
+
 It's pretty simple
+
 - $ `git clone https://github.com/stanley355/allophoneme.git`
 - $ `cargo build`
 - $ `cargo run`
+
+## !important
+
+1. For the language data to be read, arrange the dataset following the template I've set on `template.xlsx`
+2. DONT put any `row` or `column` name on the first or top cell, it will affect the data reading.
+3. You can put the encoding on `IPA` as you like, but remember it should be a word without any space or symbols
+4. If you run the similarity menu, the similarity rate is based on the IPA encoding, not based on their letters.
+5. This project is still beta, need to be tested with bigger model
+
+### TODO
+[ ] Provide menu that loops the words available and user can choose which words they wanna target
+[ ] Convert this repo into desktop app using Tauri
