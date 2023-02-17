@@ -1,5 +1,12 @@
-use  crate::{cli::WELCOME_TEXTS, excel::Excel, word_ipa_pair::WordIpaPair};
-pub struct Allophone;
+use crate::{
+    cli::WELCOME_TEXTS, excel::Excel, levenshtein::levenshtein_distance, word_ipa_pair::WordIpaPair,
+};
+
+#[derive(Debug)]
+pub struct Allophone {
+    pub word: String,
+    pub res: f32,
+}
 
 impl Allophone {
     pub fn find_similarity_cli() {
@@ -24,8 +31,23 @@ impl Allophone {
 
         let list = WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
 
-        for (i, li) in list.iter().enumerate() {
+        let new_list = Self::create_similarity_list(list[0].clone(), list);
+        println!("Target word: {}", new_list[0].word.clone());
+        for (i, li) in new_list.into_iter().enumerate() {
             println!("{}, {:?}", i + 1, li);
         }
+    }
+
+    fn create_similarity_list(
+        word_ipa: WordIpaPair,
+        word_ipa_list: Vec<WordIpaPair>,
+    ) -> Vec<Allophone> {
+        word_ipa_list
+            .into_iter()
+            .map(|pair| Allophone {
+                word: pair.word,
+                res: levenshtein_distance(&word_ipa.word_ipa, &pair.word_ipa),
+            })
+            .collect()
     }
 }

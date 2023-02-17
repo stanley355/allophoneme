@@ -2,7 +2,7 @@ use crate::cli::WELCOME_TEXTS;
 use crate::excel::Excel;
 use crate::ipa_encoding_pair::IpaEncodingPair;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct WordIpaPair {
     pub word: String,
     pub word_ipa: String,
