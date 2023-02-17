@@ -44,5 +44,5 @@ It's pretty simple
 5. This project is still beta, need to be tested with bigger model
 
 ### TODO
-[ ] Provide menu that loops the words available and user can choose which words they wanna target
-[ ] Convert this repo into desktop app using Tauri
+- [ ] Provide menu that loops the words available and user can choose which words they wanna target
+- [ ] Convert this repo into desktop app using Tauri
