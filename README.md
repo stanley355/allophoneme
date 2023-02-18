@@ -38,10 +38,11 @@ It's pretty simple
 ## !important
 
 1. For the language data to be read, arrange the dataset following the template I've set on `template.xlsx`
-2. DONT put any `row` or `column` name on the first or top cell, it will affect the data reading.
-3. You can put the encoding on `IPA` as you like, but remember it should be a word without any space or symbols
-4. If you run the similarity menu, the similarity rate is based on the IPA encoding, not based on their letters.
-5. This project is still beta, need to be tested with bigger model
+2. Put your template on the `same folder` with the repo, `not in` the repo. Example
+3. DONT put any `row` or `column` name on the first or top cell, it will affect the data reading.
+4. You can put the encoding on `IPA` as you like, but remember it should be a word without any space or symbols
+5. If you run the similarity menu, the similarity rate is based on the IPA encoding, not based on their letters.
+6. This project is still beta, need to be tested with bigger model
 
 ### TODO
 - [ ] Provide menu that loops the words available and user can choose which words they wanna target
