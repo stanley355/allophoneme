@@ -93,7 +93,7 @@ impl Allophoneme {
                 encoded_ipa_list.clone(),
             );
             for allophoneme in new_list {
-                if allophoneme.similarity > 0.8 {
+                if allophoneme.similarity > 0.85 && allophoneme.similarity < 1.0 {
                     println!("-. {:?}", allophoneme);
                 }
             }
