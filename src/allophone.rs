@@ -1,5 +1,8 @@
 use crate::{
-    cli::{WELCOME_TEXTS, Cli}, excel::Excel, levenshtein::levenshtein_distance, word_ipa_pair::WordIpaPair,
+    cli::{Cli, WELCOME_TEXTS},
+    excel::Excel,
+    levenshtein::levenshtein_distance,
+    word_ipa_pair::WordIpaPair,
 };
 
 #[derive(Debug)]
@@ -32,18 +35,10 @@ impl Allophone {
             selected_workbook, selected_sheet
         );
 
-        let encoded_ipa_list = WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
+        let encoded_ipa_list =
+            WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
 
-        println!("Which word is the target word?");
-        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
-            println!("{}. {}", i + 1, encoded_ipa.word);
-        }
-
-        // let new_list = Self::create_similarity_list(list[0].clone(), list);
-        // println!("Target word: {}", new_list[0].word.clone());
-        // for (i, li) in new_list.into_iter().enumerate() {
-        //     println!("{}, {:?}", i + 1, li);
-        // }
+        Self::find_similar_words(encoded_ipa_list);
     }
 
     fn create_similarity_list(
@@ -57,5 +52,31 @@ impl Allophone {
                 similarity: levenshtein_distance(&word_ipa.word_ipa, &pair.word_ipa),
             })
             .collect()
+    }
+
+    fn find_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
+        println!("Which word is the target word?");
+        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
+            println!("{}. {}", i + 1, encoded_ipa.word);
+        }
+        let target_word = Cli::request_input("Enter a number: ");
+        let target_word_parse = target_word.parse::<usize>();
+
+        match target_word_parse {
+            Ok(index) => {
+                println!("Your target word is: {}", target_word);
+                let new_list = Self::create_similarity_list(
+                    encoded_ipa_list[index - 1].clone(),
+                    encoded_ipa_list,
+                );
+                for (i, allophoneme) in new_list.into_iter().enumerate() {
+                    println!("{}, {:?}", i + 1, allophoneme);
+                }
+            }
+            Err(_) => {
+                eprintln!("Input Invalid!");
+                Self::find_similar_words(encoded_ipa_list)
+            }
+        }
     }
 }
