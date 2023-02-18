@@ -4,7 +4,7 @@
 
 # Allophoneme
 
-Machine Learning Model to find Allophones and Phonemes
+Machine Learning Model to find Allophones and Phonemes written in Rust. Any PR are welcome
 
 ## Purpose
 
@@ -46,9 +46,21 @@ It's pretty simple
 5. If you run the similarity menu, the similarity rate is based on the IPA encoding, not based on their letters.
 6. This project is still beta, need to be tested with bigger model
 
-### TODO
-- [ ] Provide menu that loops the words available and user can choose which words they wanna target
+## Screenshots
+1. Welcome menu
+![image](https://user-images.githubusercontent.com/53996155/219847393-8de02f90-b71d-4af6-bc7f-e0225c79fcb7.png)
+
+2. Excel Template for Datasets
+![image](https://user-images.githubusercontent.com/53996155/219847424-dbfef53f-fd8f-4c6e-aa6a-9d5743052c71.png)
+
+3. Example flow for similarity finding
+![image](https://user-images.githubusercontent.com/53996155/219848074-b0a24afc-cfd8-4d4e-bfd6-df6d27ce8fcf.png)
+
+4. Example Result
+![image](https://user-images.githubusercontent.com/53996155/219848091-c793c123-efbb-493d-8b3d-5655ebb27f55.png)
+
+
+### TODO for myself
+- [x] Provide menu that loops the words available and user can choose which words they wanna target
 - [ ] Example result on readme
 - [ ] Convert this repo into desktop app using Tauri
-
-### Any PR is welcome!
