@@ -32,13 +32,18 @@ impl Allophone {
             selected_workbook, selected_sheet
         );
 
-        let list = WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
+        let encoded_ipa_list = WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
 
-        let new_list = Self::create_similarity_list(list[0].clone(), list);
-        println!("Target word: {}", new_list[0].word.clone());
-        for (i, li) in new_list.into_iter().enumerate() {
-            println!("{}, {:?}", i + 1, li);
+        println!("Which word is the target word?");
+        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
+            println!("{}. {}", i + 1, encoded_ipa.word);
         }
+
+        // let new_list = Self::create_similarity_list(list[0].clone(), list);
+        // println!("Target word: {}", new_list[0].word.clone());
+        // for (i, li) in new_list.into_iter().enumerate() {
+        //     println!("{}, {:?}", i + 1, li);
+        // }
     }
 
     fn create_similarity_list(
