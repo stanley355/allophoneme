@@ -6,12 +6,12 @@ use crate::{
 };
 
 #[derive(Debug)]
-pub struct Allophone {
+pub struct Allophoneme {
     pub word: String,
     pub similarity: f32,
 }
 
-impl Allophone {
+impl Allophoneme {
     pub fn find_similarity_cli() {
         println!("You chose {}", WELCOME_TEXTS[5]);
         println!("Which excel file you want me to read?");
@@ -44,10 +44,10 @@ impl Allophone {
     fn create_similarity_list(
         word_ipa: WordIpaPair,
         word_ipa_list: Vec<WordIpaPair>,
-    ) -> Vec<Allophone> {
+    ) -> Vec<Allophoneme> {
         word_ipa_list
             .into_iter()
-            .map(|pair| Allophone {
+            .map(|pair| Allophoneme {
                 word: pair.word,
                 similarity: levenshtein_distance(&word_ipa.word_ipa, &pair.word_ipa),
             })
@@ -64,13 +64,16 @@ impl Allophone {
 
         match target_word_parse {
             Ok(index) => {
-                println!("Your target word is: {}", target_word);
+                println!("Your target word is: {}", encoded_ipa_list[index - 1].word);
+                println!("Most similar words are: ");
                 let new_list = Self::create_similarity_list(
                     encoded_ipa_list[index - 1].clone(),
                     encoded_ipa_list,
                 );
                 for (i, allophoneme) in new_list.into_iter().enumerate() {
-                    println!("{}, {:?}", i + 1, allophoneme);
+                    if allophoneme.similarity > 0.8 {
+                        println!("{}, {:?}", i + 1, allophoneme);
+                    }
                 }
             }
             Err(_) => {

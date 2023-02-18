@@ -1,4 +1,4 @@
-use crate::allophone::Allophone;
+use crate::allophone::Allophoneme;
 use crate::excel::Excel;
 use crate::word_ipa_pair::WordIpaPair;
 use std::io;
@@ -40,7 +40,7 @@ impl Cli {
             Ok(res) => match res {
                 1 => Excel::read_excel_cli(),
                 2 => WordIpaPair::encode_ipa_cli(),
-                3 => Allophone::find_similarity_cli(),
+                3 => Allophoneme::find_similarity_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
