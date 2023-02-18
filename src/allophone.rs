@@ -38,7 +38,8 @@ impl Allophoneme {
         let encoded_ipa_list =
             WordIpaPair::encode_ipa_from_excel(selected_workbook, selected_sheet);
 
-        Self::find_similar_words(encoded_ipa_list);
+        // Self::find_similar_words(encoded_ipa_list);
+        Self::find_all_similar_words(encoded_ipa_list);
     }
 
     fn create_similarity_list(
@@ -82,4 +83,21 @@ impl Allophoneme {
             }
         }
     }
+
+    fn find_all_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
+        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
+            println!("{}. Word : {}", i + 1, encoded_ipa.word.clone());
+
+            let new_list = Self::create_similarity_list(
+                encoded_ipa_list[i].clone(),
+                encoded_ipa_list.clone(),
+            );
+            for allophoneme in new_list {
+                if allophoneme.similarity > 0.8 {
+                    println!("-. {:?}", allophoneme);
+                }
+            }
+        }
+    }
+
 }
