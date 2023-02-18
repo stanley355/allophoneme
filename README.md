@@ -48,17 +48,24 @@ It's pretty simple
 
 ## Screenshots
 1. Welcome menu
-![image](https://user-images.githubusercontent.com/53996155/219847393-8de02f90-b71d-4af6-bc7f-e0225c79fcb7.png)
+<div>
+  <img src="https://user-images.githubusercontent.com/53996155/219847393-8de02f90-b71d-4af6-bc7f-e0225c79fcb7.png" alt="allophoneme">
+</div>
 
 2. Excel Template for Datasets
-![image](https://user-images.githubusercontent.com/53996155/219847424-dbfef53f-fd8f-4c6e-aa6a-9d5743052c71.png)
+<div>
+  <img src="https://user-images.githubusercontent.com/53996155/219847424-dbfef53f-fd8f-4c6e-aa6a-9d5743052c71.png" alt="allophoneme">
+</div>
 
 3. Example flow for similarity finding
-![image](https://user-images.githubusercontent.com/53996155/219848074-b0a24afc-cfd8-4d4e-bfd6-df6d27ce8fcf.png)
+<div>
+  <img src="https://user-images.githubusercontent.com/53996155/219848074-b0a24afc-cfd8-4d4e-bfd6-df6d27ce8fcf.png" alt="allophoneme">
+</div>
 
 4. Example Result
-![image](https://user-images.githubusercontent.com/53996155/219848091-c793c123-efbb-493d-8b3d-5655ebb27f55.png)
-
+<div>
+  <img src="https://user-images.githubusercontent.com/53996155/219848091-c793c123-efbb-493d-8b3d-5655ebb27f55.png" alt="allophoneme">
+</div>
 
 ### TODO for myself
 - [x] Provide menu that loops the words available and user can choose which words they wanna target
