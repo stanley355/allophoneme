@@ -39,6 +39,8 @@ It's pretty simple
 
 1. For the language data to be read, arrange the dataset following the template I've set on `template.xlsx`
 2. Put your template on the `same folder` with the repo, `not in` the repo. Example
+![image](https://user-images.githubusercontent.com/53996155/219829648-f85c2684-97fa-46b2-947f-25ae713504ee.png)
+
 3. DONT put any `row` or `column` name on the first or top cell, it will affect the data reading.
 4. You can put the encoding on `IPA` as you like, but remember it should be a word without any space or symbols
 5. If you run the similarity menu, the similarity rate is based on the IPA encoding, not based on their letters.
