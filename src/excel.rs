@@ -115,7 +115,7 @@ impl Excel {
             for (i, row) in r.rows().into_iter().enumerate() {
                 println!(
                     "{} {:?}",
-                    "",
+                    i + 1,
                     Self::convert_excel_row_to_table_format(row)
                 );
             }
