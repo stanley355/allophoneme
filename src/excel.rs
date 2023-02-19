@@ -114,8 +114,8 @@ impl Excel {
         if let Some(Ok(r)) = excel.worksheet_range(&self.sheet) {
             for (i, row) in r.rows().into_iter().enumerate() {
                 println!(
-                    "{}. {:?}",
-                    i + 1,
+                    "{} {:?}",
+                    "",
                     Self::convert_excel_row_to_table_format(row)
                 );
             }
