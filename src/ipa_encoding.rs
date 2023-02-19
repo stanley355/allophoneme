@@ -54,5 +54,6 @@ pub const IPA_ENCODING_LIST: [IpaEncoding] = [
     IpaEncoding::new("r", "c22"),
     IpaEncoding::new("w", "c23"),
     IpaEncoding::new("j", "c24"),
-    IpaEncoding::new("ʔ", "c25")
+    IpaEncoding::new("ʔ", "c25"),
+    IpaEncoding::new("ɲ", "c26"),
 ];
