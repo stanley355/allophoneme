@@ -86,18 +86,20 @@ impl Allophoneme {
 
     fn find_all_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
         for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
-            println!("{}. Word : {}", i + 1, encoded_ipa.word.clone());
+            let similariy_list =
+                Self::create_similarity_list(encoded_ipa_list[i].clone(), encoded_ipa_list.clone());
 
-            let new_list = Self::create_similarity_list(
-                encoded_ipa_list[i].clone(),
-                encoded_ipa_list.clone(),
-            );
-            for allophoneme in new_list {
-                if allophoneme.similarity > 0.85 && allophoneme.similarity < 1.0 {
-                    println!("-. {:?}", allophoneme);
+            let filtered_list: Vec<Allophoneme> = similariy_list
+                .into_iter()
+                .filter(|allophoneme| allophoneme.similarity > 0.83 && allophoneme.similarity < 1.0)
+                .collect();
+
+            if filtered_list.len() > 0 {
+                println!("{}. Word : {}", i + 1, encoded_ipa.word.clone());
+                for allophoneme in filtered_list {
+                    println!("-. {:?}", allophoneme)
                 }
             }
         }
     }
-
 }
