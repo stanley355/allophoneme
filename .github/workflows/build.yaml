@@ -1,0 +1,20 @@
+name: Build pipleine
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build_and_test:
+    name: Allophoneme Build Workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Build
+        run: cargo build --release --all-features
