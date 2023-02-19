@@ -55,34 +55,35 @@ impl Allophoneme {
             .collect()
     }
 
-    fn find_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
-        println!("Which word is the target word?");
-        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
-            println!("{}. {}", i + 1, encoded_ipa.word);
-        }
-        let target_word = Cli::request_input("Enter a number: ");
-        let target_word_parse = target_word.parse::<usize>();
+    // TODO: Create a flow with this function
+    // fn find_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
+    //     println!("Which word is the target word?");
+    //     for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
+    //         println!("{}. {}", i + 1, encoded_ipa.word);
+    //     }
+    //     let target_word = Cli::request_input("Enter a number: ");
+    //     let target_word_parse = target_word.parse::<usize>();
 
-        match target_word_parse {
-            Ok(index) => {
-                println!("Your target word is: {}", encoded_ipa_list[index - 1].word);
-                println!("Most similar words are: ");
-                let new_list = Self::create_similarity_list(
-                    encoded_ipa_list[index - 1].clone(),
-                    encoded_ipa_list,
-                );
-                for (i, allophoneme) in new_list.into_iter().enumerate() {
-                    if allophoneme.similarity > 0.8 {
-                        println!("{}, {:?}", i + 1, allophoneme);
-                    }
-                }
-            }
-            Err(_) => {
-                eprintln!("Input Invalid!");
-                Self::find_similar_words(encoded_ipa_list)
-            }
-        }
-    }
+    //     match target_word_parse {
+    //         Ok(index) => {
+    //             println!("Your target word is: {}", encoded_ipa_list[index - 1].word);
+    //             println!("Most similar words are: ");
+    //             let new_list = Self::create_similarity_list(
+    //                 encoded_ipa_list[index - 1].clone(),
+    //                 encoded_ipa_list,
+    //             );
+    //             for (i, allophoneme) in new_list.into_iter().enumerate() {
+    //                 if allophoneme.similarity > 0.8 {
+    //                     println!("{}, {:?}", i + 1, allophoneme);
+    //                 }
+    //             }
+    //         }
+    //         Err(_) => {
+    //             eprintln!("Input Invalid!");
+    //             Self::find_similar_words(encoded_ipa_list)
+    //         }
+    //     }
+    // }
 
     fn find_all_similar_words(encoded_ipa_list: Vec<WordIpaPair>) {
         for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
