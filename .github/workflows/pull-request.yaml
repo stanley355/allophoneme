@@ -1,4 +1,4 @@
-name: Build pipleine
+name: PR pipleine
 
 on:
   pull_request:
