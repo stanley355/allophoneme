@@ -38,8 +38,8 @@ pub const IPA_ENCODING_LIST: [IpaEncoding] = [
     IpaEncoding::new("g", "c6"),
     IpaEncoding::new("f", "c7"),
     IpaEncoding::new("v", "c8"),
-    IpaEncoding::new("ɵ", "c9"),
-    IpaEncoding::new("ð", "c10"),
+    IpaEncoding::new("ɵ", "v17"),
+    IpaEncoding::new("ð", "v18"),
     IpaEncoding::new("s", "c11"),
     IpaEncoding::new("z", "c12"),
     IpaEncoding::new("ʃ", "c13"),
@@ -54,4 +54,5 @@ pub const IPA_ENCODING_LIST: [IpaEncoding] = [
     IpaEncoding::new("r", "c22"),
     IpaEncoding::new("w", "c23"),
     IpaEncoding::new("j", "c24"),
+    IpaEncoding::new("ʔ", "c25")
 ];
