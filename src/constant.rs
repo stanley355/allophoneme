@@ -1,5 +1,5 @@
 // #[derive(Debug, Clone)]
-pub const IPA_TUPLES: [(&str, &str); 44] = [
+pub const IPA_TUPLES: [(&str, &str); 45] = [
     ("i", "v1"),
     ("ɪ", "v2"),
     ("e", "v3"),
@@ -16,6 +16,7 @@ pub const IPA_TUPLES: [(&str, &str); 44] = [
     ("ɑɪ", "v14"),
     ("ɑʊ", "v15"),
     ("ɔɪ", "v16"),
+    ("a", "v17"),
     ("p", "c1"),
     ("b", "c2"),
     ("d", "c3"),
