@@ -1,6 +1,5 @@
-use crate::allophone::Allophoneme;
+use crate::doodle::Doodle;
 use crate::excel::Excel;
-use crate::word_ipa_pair::WordIpaPair;
 use std::io;
 use std::num::ParseIntError;
 
@@ -9,8 +8,8 @@ pub const WELCOME_TEXTS: [&str; 6] = [
     "Welcome Boss!",
     "How can I help you?",
     "1. Read Excel Sheet",
-    "2. Encode words",
-    "3. Find similarity"
+    "2. Check Encoding",
+    "3. Check words similarities"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
@@ -39,8 +38,8 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_excel_cli(),
-                2 => WordIpaPair::encode_ipa_cli(),
-                3 => Allophoneme::find_similarity_cli(),
+                2 => Doodle::check_encoding_cli(),
+                3 => Doodle::check_similarities_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
