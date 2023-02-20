@@ -1,4 +1,8 @@
-use crate::constant::IPA_TUPLES;
+use crate::{
+    cli::{Cli, WELCOME_TEXTS},
+    constant::IPA_TUPLES,
+    excel::Excel,
+};
 
 #[derive(Debug, Clone)]
 pub struct Doodle {
@@ -25,5 +29,37 @@ impl Doodle {
         }
 
         arr_word_ipa.join("-")
+    }
+
+    pub fn encode_word_ipa_cli() {
+        println!("You chose {}", WELCOME_TEXTS[7]);
+        println!("Which excel file you want me to read?");
+        let excel_files = Excel::find_excel_file_in_parent_dir();
+
+        if excel_files.len() > 0 {
+            for (i, excel) in excel_files.iter().enumerate() {
+                println!("{}. {}", i + 1, excel);
+            }
+        } else {
+            println!("File not found, returning to main menu");
+            Cli::start_menu();
+        }
+
+        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
+
+        println!("Which sheet is the dataset?");
+        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
+
+        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
+
+        // let ipa_encoding_pair_list =
+        //     IpaEncodingPair::get_ipa_encoding_pair_list(selected_workbook.clone());
+        // let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
+
+        // let encoded_list = Self::encode_all_word_ipa(ipa_encoding_pair_list, word_ipa_pair_list);
+
+        // for (i, encoded) in encoded_list.iter().enumerate() {
+        //     println!("{}, {:?}", i + 1, encoded);
+        // }
     }
 }
