@@ -64,14 +64,10 @@ impl Doodle {
 
         println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
 
-        // let ipa_encoding_pair_list =
-        //     IpaEncodingPair::get_ipa_encoding_pair_list(selected_workbook.clone());
-        // let word_ipa_pair_list = Self::get_word_ipa_pair_list(selected_workbook, selected_sheet);
+        let encoded_ipa_list = Self::encode_word_ipa_from_excel(workbook, sheet);
 
-        // let encoded_list = Self::encode_all_word_ipa(ipa_encoding_pair_list, word_ipa_pair_list);
-
-        // for (i, encoded) in encoded_list.iter().enumerate() {
-        //     println!("{}, {:?}", i + 1, encoded);
-        // }
+        for (i, encoded_ipa) in encoded_ipa_list.iter().enumerate() {
+            println!("{}, {:?}", i + 1, encoded_ipa);
+        }
     }
 }
