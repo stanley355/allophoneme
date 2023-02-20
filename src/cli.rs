@@ -1,7 +1,5 @@
-use crate::allophone::Allophoneme;
 use crate::doodle::Doodle;
 use crate::excel::Excel;
-use crate::word_ipa_pair::WordIpaPair;
 use std::io;
 use std::num::ParseIntError;
 
@@ -41,9 +39,8 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_excel_cli(),
-                2 => WordIpaPair::encode_ipa_cli(),
-                3 => Allophoneme::find_similarity_cli(),
-                4 => Doodle::check_similarities_cli(),
+                2 => Doodle::check_similarities_cli(),
+                3 => Doodle::check_similarities_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();

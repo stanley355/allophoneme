@@ -17,8 +17,19 @@ impl Doodle {
         Self {
             word,
             word_ipa: word_ipa.clone(),
-            word_ipa_encoded: String::from(""),
+            word_ipa_encoded: Self::encode_word_ipa(word_ipa),
         }
+    }
+
+    fn encode_word_ipa(word_ipa: String) -> String {
+        let mut arr_word_ipa: Vec<String> = Vec::new();
+        for pair in IPA_TUPLES {
+            if word_ipa.contains(pair.0) {
+                arr_word_ipa.push(String::from(pair.1).clone())
+            }
+        }
+
+        arr_word_ipa.join("-")
     }
 
     pub fn fetch_doodle_data_from_excel(workbook: String, sheet: String) -> Vec<Doodle> {
@@ -56,6 +67,7 @@ impl Doodle {
 
         let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
 
+
         // println!("{:?}", doodle_dataset);
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
@@ -64,7 +76,7 @@ impl Doodle {
 #[derive(Debug, Clone)]
 struct DoodleSimilarity {
     pub word: String,
-    pub similarity: f32,
+    pub ipa_similarity: f32,
 }
 
 impl DoodleSimilarity {
@@ -76,9 +88,9 @@ impl DoodleSimilarity {
             .iter()
             .map(|dood| DoodleSimilarity {
                 word: dood.word.clone(),
-                similarity: levenshtein_distance(&dood.word_ipa, &target_doodle.word_ipa),
+                ipa_similarity: levenshtein_distance(&target_doodle.word_ipa_encoded, &dood.word_ipa_encoded),
             })
-            .filter(|dood_similar| dood_similar.similarity > 0.85)
+            .filter(|dood_similar| dood_similar.ipa_similarity > 0.85 && dood_similar.ipa_similarity < 0.99)
             .collect();
 
         doodle_similariy_list
