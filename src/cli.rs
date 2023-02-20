@@ -12,7 +12,7 @@ pub const WELCOME_TEXTS: [&str; 7] = [
     "1. Read Excel Sheet",
     "2. Encode words",
     "3. Find similarity",
-    "4. Encode words IPA (New)"
+    "4. Check words similarities (New)"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 

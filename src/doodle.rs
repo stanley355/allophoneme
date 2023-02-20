@@ -56,6 +56,7 @@ impl Doodle {
 
         let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
 
+        // println!("{:?}", doodle_dataset);
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
 }
@@ -71,14 +72,16 @@ impl DoodleSimilarity {
         target_doodle: &Doodle,
         doodle_list: &Vec<Doodle>,
     ) -> Vec<DoodleSimilarity> {
-        doodle_list
+        let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
             .iter()
             .map(|dood| DoodleSimilarity {
                 word: dood.word.clone(),
                 similarity: levenshtein_distance(&dood.word_ipa, &target_doodle.word_ipa),
             })
-            .filter(|dood_similar| dood_similar.similarity > 0.85 && dood_similar.similarity < 1.0)
-            .collect()
+            .filter(|dood_similar| dood_similar.similarity > 0.85)
+            .collect();
+
+        doodle_similariy_list
     }
 
     pub fn print_doodle_similarity_list(doodle_list: Vec<Doodle>) {
