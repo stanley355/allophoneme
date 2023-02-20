@@ -47,7 +47,7 @@ impl Doodle {
     }
 
     pub fn check_encoding_cli() {
-        println!("You chose {}", WELCOME_TEXTS[5]);
+        println!("You chose {}", WELCOME_TEXTS[4]);
         println!("Which excel file you want me to read?");
         let excel_files = Excel::find_excel_file_in_parent_dir();
 
@@ -75,7 +75,7 @@ impl Doodle {
     }
 
     pub fn check_similarities_cli() {
-        println!("You chose {}", WELCOME_TEXTS[7]);
+        println!("You chose {}", WELCOME_TEXTS[5]);
         println!("Which excel file you want me to read?");
         let excel_files = Excel::find_excel_file_in_parent_dir();
 
@@ -114,7 +114,7 @@ impl DoodleSimilarity {
     ) -> Vec<DoodleSimilarity> {
         let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
             .iter()
-            .filter(|dood| dood.word.len() == target_doodle.word.len())
+            // .filter(|dood| dood.word.len() == target_doodle.word.len()) TODO: Need research for implementing this filter
             .map(|dood| DoodleSimilarity {
                 word: dood.word.clone(),
                 ipa_similarity: levenshtein_distance(

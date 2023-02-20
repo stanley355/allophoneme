@@ -69,5 +69,7 @@ It's pretty simple
 
 ### TODO for myself
 - [x] Provide menu that loops the words available and user can choose which words they wanna target
-- [ ] Example result on readme
+- [x] Example result on readme
+- [ ] Research on limiting string length result
+- [ ] Filter if the same result already exist then clean it
 - [ ] Convert this repo into desktop app using Tauri
