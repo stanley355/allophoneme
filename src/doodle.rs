@@ -114,7 +114,7 @@ impl DoodleSimilarity {
     ) -> Vec<DoodleSimilarity> {
         let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
             .iter()
-            // .filter(|dood| dood.word.len() == target_doodle.word.len()) TODO: Need research for implementing this filter
+            // .filter(|dood| dood.word.len() == target_doodle.word.len())  // Jambi research result is missing 2 results
             .map(|dood| DoodleSimilarity {
                 word: dood.word.clone(),
                 ipa_similarity: levenshtein_distance(
