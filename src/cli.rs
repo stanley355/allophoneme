@@ -39,7 +39,7 @@ impl Cli {
         match input_res {
             Ok(res) => match res {
                 1 => Excel::read_excel_cli(),
-                2 => Doodle::check_similarities_cli(),
+                2 => Doodle::check_encoding_cli(),
                 3 => Doodle::check_similarities_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);

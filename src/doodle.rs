@@ -14,10 +14,12 @@ pub struct Doodle {
 
 impl Doodle {
     pub fn new(word: String, word_ipa: String) -> Self {
+        let trim_ipa = word_ipa.trim().to_string();
+
         Self {
-            word,
-            word_ipa: word_ipa.clone(),
-            word_ipa_encoded: Self::encode_word_ipa(word_ipa),
+            word: word.trim().to_string(),
+            word_ipa: trim_ipa.clone(),
+            word_ipa_encoded: Self::encode_word_ipa(trim_ipa),
         }
     }
 
@@ -44,6 +46,34 @@ impl Doodle {
         doodle_list
     }
 
+    pub fn check_encoding_cli() {
+        println!("You chose {}", WELCOME_TEXTS[6]);
+        println!("Which excel file you want me to read?");
+        let excel_files = Excel::find_excel_file_in_parent_dir();
+
+        if excel_files.len() > 0 {
+            for (i, excel) in excel_files.iter().enumerate() {
+                println!("{}. {}", i + 1, excel);
+            }
+        } else {
+            println!("File not found, returning to main menu");
+            Cli::start_menu();
+        }
+
+        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
+
+        println!("Which sheet is the dataset?");
+        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
+
+        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
+
+        let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
+
+        for (i, dataset) in doodle_dataset.iter().enumerate() {
+            println!("{}. {:?}", i + 1, dataset);
+        }
+    }
+
     pub fn check_similarities_cli() {
         println!("You chose {}", WELCOME_TEXTS[6]);
         println!("Which excel file you want me to read?");
@@ -67,8 +97,6 @@ impl Doodle {
 
         let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
 
-
-        // println!("{:?}", doodle_dataset);
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
 }
@@ -86,11 +114,17 @@ impl DoodleSimilarity {
     ) -> Vec<DoodleSimilarity> {
         let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
             .iter()
+            .filter(|dood| dood.word.len() == target_doodle.word.len())
             .map(|dood| DoodleSimilarity {
                 word: dood.word.clone(),
-                ipa_similarity: levenshtein_distance(&target_doodle.word_ipa_encoded, &dood.word_ipa_encoded),
+                ipa_similarity: levenshtein_distance(
+                    &target_doodle.word_ipa_encoded,
+                    &dood.word_ipa_encoded,
+                ),
             })
-            .filter(|dood_similar| dood_similar.ipa_similarity > 0.85 && dood_similar.ipa_similarity < 0.99)
+            .filter(|dood_similar| {
+                dood_similar.ipa_similarity > 0.85 && dood_similar.ipa_similarity < 0.99
+            })
             .collect();
 
         doodle_similariy_list
