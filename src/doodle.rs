@@ -31,6 +31,18 @@ impl Doodle {
         arr_word_ipa.join("-")
     }
 
+    pub fn encode_word_ipa_from_excel(workbook: String, sheet: String) -> Vec<Doodle> {
+        let excel = Excel::new(workbook, sheet);
+        let excel_data = excel.fetch_worksheet_data();
+
+        let doodle_list: Vec<Doodle> = excel_data
+            .into_iter()
+            .map(|data| Self::new(data[0].clone(), data[1].clone()))
+            .collect();
+
+        doodle_list
+    }
+
     pub fn encode_word_ipa_cli() {
         println!("You chose {}", WELCOME_TEXTS[7]);
         println!("Which excel file you want me to read?");
