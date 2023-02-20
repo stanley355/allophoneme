@@ -47,7 +47,7 @@ impl Doodle {
     }
 
     pub fn check_encoding_cli() {
-        println!("You chose {}", WELCOME_TEXTS[6]);
+        println!("You chose {}", WELCOME_TEXTS[5]);
         println!("Which excel file you want me to read?");
         let excel_files = Excel::find_excel_file_in_parent_dir();
 
@@ -75,7 +75,7 @@ impl Doodle {
     }
 
     pub fn check_similarities_cli() {
-        println!("You chose {}", WELCOME_TEXTS[6]);
+        println!("You chose {}", WELCOME_TEXTS[7]);
         println!("Which excel file you want me to read?");
         let excel_files = Excel::find_excel_file_in_parent_dir();
 

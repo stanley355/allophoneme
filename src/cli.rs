@@ -3,14 +3,13 @@ use crate::excel::Excel;
 use std::io;
 use std::num::ParseIntError;
 
-pub const WELCOME_TEXTS: [&str; 7] = [
+pub const WELCOME_TEXTS: [&str; 6] = [
     "",
     "Welcome Boss!",
     "How can I help you?",
     "1. Read Excel Sheet",
-    "2. Encode words",
-    "3. Find similarity",
-    "4. Check words similarities (New)"
+    "2. Check Encoding",
+    "3. Check words similarities"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
