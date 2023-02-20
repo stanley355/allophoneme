@@ -44,7 +44,7 @@ impl Doodle {
     }
 
     pub fn encode_word_ipa_cli() {
-        println!("You chose {}", WELCOME_TEXTS[7]);
+        println!("You chose {}", WELCOME_TEXTS[6]);
         println!("Which excel file you want me to read?");
         let excel_files = Excel::find_excel_file_in_parent_dir();
 
