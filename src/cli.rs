@@ -43,7 +43,7 @@ impl Cli {
                 1 => Excel::read_excel_cli(),
                 2 => WordIpaPair::encode_ipa_cli(),
                 3 => Allophoneme::find_similarity_cli(),
-                4 => Doodle::encode_word_ipa_cli(),
+                4 => Doodle::check_similarities_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
