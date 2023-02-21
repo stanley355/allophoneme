@@ -15,7 +15,13 @@ impl Excel {
 
     pub fn read_excel_cli() {
         println!("You chose {}", WELCOME_TEXTS[3]);
+        let excel = Self::read_excel_request();
 
+        println!("Workbook: '{}' | Sheet: '{}' ", excel.workbook, excel.sheet);
+        excel.read_workbook_sheet();
+    }
+
+    pub fn read_excel_request() -> Self {
         println!("Which excel file you want me to read?");
         let excel_files = Self::find_excel_file_in_parent_dir();
         if excel_files.len() > 0 {
@@ -27,20 +33,13 @@ impl Excel {
             Cli::start_menu();
         }
 
-        let selected_workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
+        let workbook = Self::request_workbook_input_from_existing_workbooks(&excel_files);
 
-        println!(
-            "Which sheet from {workbook} you want me to read?",
-            workbook = selected_workbook
-        );
-        let selected_sheet = Self::request_sheet_input_from_workbook(&selected_workbook);
+        println!("Which sheet from {} you want me to read?", workbook);
+        let sheet = Self::request_sheet_input_from_workbook(&workbook);
 
-        println!(
-            "I will read '{1}' sheet from '{0}' workbook:",
-            selected_workbook, selected_sheet
-        );
-        let excel = Excel::new(selected_workbook, selected_sheet);
-        excel.read_workbook_sheet();
+        println!("Workbook {} | Sheet {}", workbook, sheet);
+        Self::new(workbook, sheet)
     }
 
     pub fn find_excel_file_in_parent_dir() -> Vec<String> {

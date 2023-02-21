@@ -1,8 +1,5 @@
 use crate::{
-    cli::{Cli, WELCOME_TEXTS},
-    constant::IPA_TUPLES,
-    excel::Excel,
-    levenshtein::levenshtein_distance,
+    cli::WELCOME_TEXTS, constant::IPA_TUPLES, doodle_similarity::DoodleSimilarity, excel::Excel,
 };
 
 #[derive(Debug, Clone)]
@@ -34,8 +31,7 @@ impl Doodle {
         arr_word_ipa.join("-")
     }
 
-    pub fn fetch_doodle_data_from_excel(workbook: String, sheet: String) -> Vec<Doodle> {
-        let excel = Excel::new(workbook, sheet);
+    pub fn create_doodle_data_from_excel(excel: Excel) -> Vec<Doodle> {
         let excel_data = excel.fetch_worksheet_data();
 
         let doodle_list: Vec<Doodle> = excel_data
@@ -48,26 +44,9 @@ impl Doodle {
 
     pub fn check_encoding_cli() {
         println!("You chose {}", WELCOME_TEXTS[4]);
-        println!("Which excel file you want me to read?");
-        let excel_files = Excel::find_excel_file_in_parent_dir();
+        let excel = Excel::read_excel_request();
 
-        if excel_files.len() > 0 {
-            for (i, excel) in excel_files.iter().enumerate() {
-                println!("{}. {}", i + 1, excel);
-            }
-        } else {
-            println!("File not found, returning to main menu");
-            Cli::start_menu();
-        }
-
-        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
-
-        println!("Which sheet is the dataset?");
-        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
-
-        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
-
-        let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
+        let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
         for (i, dataset) in doodle_dataset.iter().enumerate() {
             println!("{}. {:?}", i + 1, dataset);
@@ -76,69 +55,9 @@ impl Doodle {
 
     pub fn check_similarities_cli() {
         println!("You chose {}", WELCOME_TEXTS[5]);
-        println!("Which excel file you want me to read?");
-        let excel_files = Excel::find_excel_file_in_parent_dir();
-
-        if excel_files.len() > 0 {
-            for (i, excel) in excel_files.iter().enumerate() {
-                println!("{}. {}", i + 1, excel);
-            }
-        } else {
-            println!("File not found, returning to main menu");
-            Cli::start_menu();
-        }
-
-        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
-
-        println!("Which sheet is the dataset?");
-        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
-
-        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
-
-        let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
+        let excel = Excel::read_excel_request();
+        let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
-    }
-}
-
-#[derive(Debug, Clone)]
-struct DoodleSimilarity {
-    pub word: String,
-    pub ipa_similarity: f32,
-}
-
-impl DoodleSimilarity {
-    fn create_doodle_similarity_list(
-        target_doodle: &Doodle,
-        doodle_list: &Vec<Doodle>,
-    ) -> Vec<DoodleSimilarity> {
-        let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
-            .iter()
-            // .filter(|dood| dood.word.len() == target_doodle.word.len())  // Jambi research result is missing 2 results
-            .map(|dood| DoodleSimilarity {
-                word: dood.word.clone(),
-                ipa_similarity: levenshtein_distance(
-                    &target_doodle.word_ipa_encoded,
-                    &dood.word_ipa_encoded,
-                ),
-            })
-            .filter(|dood_similar| {
-                dood_similar.ipa_similarity > 0.85 && dood_similar.ipa_similarity < 0.99
-            })
-            .collect();
-
-        doodle_similariy_list
-    }
-
-    pub fn print_doodle_similarity_list(doodle_list: Vec<Doodle>) {
-        for (i, doodle) in doodle_list.clone().iter().enumerate() {
-            let doodle_similarity_list = Self::create_doodle_similarity_list(doodle, &doodle_list);
-            if doodle_similarity_list.len() > 0 {
-                println!("{}. Word: {}", i + 1, doodle.word);
-                for doodle_similarity in doodle_similarity_list {
-                    println!("-. {:?}", doodle_similarity)
-                }
-            }
-        }
     }
 }
