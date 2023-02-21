@@ -39,7 +39,7 @@ impl Excel {
         let sheet = Self::request_sheet_input_from_workbook(&workbook);
 
         println!("Workbook {} | Sheet {}", workbook, sheet);
-        Self { workbook, sheet }
+        Self::new(workbook, sheet)
     }
 
     pub fn find_excel_file_in_parent_dir() -> Vec<String> {
