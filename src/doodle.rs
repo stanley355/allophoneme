@@ -1,8 +1,5 @@
 use crate::{
-    cli::{Cli, WELCOME_TEXTS},
-    constant::IPA_TUPLES,
-    excel::Excel,
-    doodle_similarity::DoodleSimilarity,
+    cli::WELCOME_TEXTS, constant::IPA_TUPLES, doodle_similarity::DoodleSimilarity, excel::Excel,
 };
 
 #[derive(Debug, Clone)]
@@ -64,4 +61,3 @@ impl Doodle {
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
 }
-
