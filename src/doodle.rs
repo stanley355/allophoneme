@@ -34,8 +34,7 @@ impl Doodle {
         arr_word_ipa.join("-")
     }
 
-    pub fn fetch_doodle_data_from_excel(workbook: String, sheet: String) -> Vec<Doodle> {
-        let excel = Excel::new(workbook, sheet);
+    pub fn create_doodle_data_from_excel(excel: Excel) -> Vec<Doodle> {
         let excel_data = excel.fetch_worksheet_data();
 
         let doodle_list: Vec<Doodle> = excel_data
@@ -48,26 +47,9 @@ impl Doodle {
 
     pub fn check_encoding_cli() {
         println!("You chose {}", WELCOME_TEXTS[4]);
-        println!("Which excel file you want me to read?");
-        let excel_files = Excel::find_excel_file_in_parent_dir();
+        let excel = Excel::read_excel_request();
 
-        if excel_files.len() > 0 {
-            for (i, excel) in excel_files.iter().enumerate() {
-                println!("{}. {}", i + 1, excel);
-            }
-        } else {
-            println!("File not found, returning to main menu");
-            Cli::start_menu();
-        }
-
-        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
-
-        println!("Which sheet is the dataset?");
-        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
-
-        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
-
-        let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
+        let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
         for (i, dataset) in doodle_dataset.iter().enumerate() {
             println!("{}. {:?}", i + 1, dataset);
@@ -76,26 +58,8 @@ impl Doodle {
 
     pub fn check_similarities_cli() {
         println!("You chose {}", WELCOME_TEXTS[5]);
-        println!("Which excel file you want me to read?");
-        let excel_files = Excel::find_excel_file_in_parent_dir();
-
-        if excel_files.len() > 0 {
-            for (i, excel) in excel_files.iter().enumerate() {
-                println!("{}. {}", i + 1, excel);
-            }
-        } else {
-            println!("File not found, returning to main menu");
-            Cli::start_menu();
-        }
-
-        let workbook = Excel::request_workbook_input_from_existing_workbooks(&excel_files);
-
-        println!("Which sheet is the dataset?");
-        let sheet = Excel::request_sheet_input_from_workbook(&workbook);
-
-        println!("Workbook: '{0}' | Sheet: '{1}' ", workbook, sheet);
-
-        let doodle_dataset = Self::fetch_doodle_data_from_excel(workbook, sheet);
+        let excel = Excel::read_excel_request();
+        let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
