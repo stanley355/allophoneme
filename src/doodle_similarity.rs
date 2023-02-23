@@ -1,20 +1,20 @@
 use crate::{doodle::Doodle, levenshtein::levenshtein_distance};
 
 #[derive(Debug, Clone)]
-pub struct DoodleSimilarity {
+pub struct SimilarDoodle {
     pub word: String,
     pub ipa_similarity: f32,
 }
 
-impl DoodleSimilarity {
+impl SimilarDoodle{
     pub fn find_similar_doodles_from_list(
         target_doodle: &Doodle,
         doodle_list: &Vec<Doodle>,
-    ) -> Vec<DoodleSimilarity> {
-        let similar_doodle_list: Vec<DoodleSimilarity> = doodle_list
+    ) -> Vec<SimilarDoodle> {
+        let similar_doodle_list: Vec<SimilarDoodle> = doodle_list
             .iter()
             // .filter(|dood| dood.word.len() == target_doodle.word.len())  // Jambi research result is missing 2 results
-            .map(|dood| DoodleSimilarity {
+            .map(|dood| SimilarDoodle{
                 word: dood.word.clone(),
                 ipa_similarity: levenshtein_distance(
                     &target_doodle.word_ipa_encoded,
@@ -45,7 +45,7 @@ impl DoodleSimilarity {
 #[derive(Debug, Clone)]
 pub struct SimilarDoodleCollection {
     pub word: String,
-    pub similar_doodles: Vec<DoodleSimilarity>,
+    pub similar_doodles: Vec<SimilarDoodle>,
 }
 
 impl SimilarDoodleCollection {
@@ -54,7 +54,7 @@ impl SimilarDoodleCollection {
             .iter()
             .map(|doodle| SimilarDoodleCollection {
                 word: doodle.word.clone(),
-                similar_doodles: DoodleSimilarity::find_similar_doodles_from_list(doodle, &doodles),
+                similar_doodles: SimilarDoodle::find_similar_doodles_from_list(doodle, &doodles),
             })
             .filter(|doodle_collection| doodle_collection.similar_doodles.len() > 0)
             .collect();

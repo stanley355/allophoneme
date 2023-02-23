@@ -1,7 +1,7 @@
 use crate::{
     cli::WELCOME_TEXTS,
     constant::IPA_TUPLES,
-    doodle_similarity::{DoodleSimilarity, SimilarDoodleCollection},
+    doodle_similarity::{SimilarDoodle, SimilarDoodleCollection},
     excel::Excel,
 };
 
@@ -61,7 +61,7 @@ impl Doodle {
         let excel = Excel::read_excel_request();
         let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
-        DoodleSimilarity::print_similar_doodle_list(doodle_dataset);
+        SimilarDoodle::print_similar_doodle_list(doodle_dataset);
     }
 
     pub fn check_similarities_and_clean_cli() {
