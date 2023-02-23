@@ -1,5 +1,8 @@
 use crate::{
-    cli::WELCOME_TEXTS, constant::IPA_TUPLES, doodle_similarity::DoodleSimilarity, excel::Excel,
+    cli::WELCOME_TEXTS,
+    constant::IPA_TUPLES,
+    doodle_similarity::{DoodleSimilarity, SimilarDoodleCollection},
+    excel::Excel,
 };
 
 #[derive(Debug, Clone)]
@@ -60,7 +63,7 @@ impl Doodle {
 
         DoodleSimilarity::print_similar_doodle_list(doodle_dataset);
     }
-    
+
     pub fn check_similarities_and_clean_cli() {
         println!("You chose {}", WELCOME_TEXTS[6]);
         let excel = Excel::read_excel_request();
@@ -68,5 +71,10 @@ impl Doodle {
 
         // let doodle_similarity_list = DoodleSimilarity::create_doodle_similarity_list(target_doodle, doodle_list);
         // DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
+        let similar_doodle_collection = SimilarDoodleCollection::new(doodle_dataset);
+
+        for (i, similar_doodle) in similar_doodle_collection.iter().enumerate() {
+            println!("{}. {:?}", i + 1, similar_doodle);
+        }
     }
 }

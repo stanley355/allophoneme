@@ -7,7 +7,7 @@ pub struct DoodleSimilarity {
 }
 
 impl DoodleSimilarity {
-    pub fn create_similar_doodle_list(
+    pub fn find_similar_doodles_from_list(
         target_doodle: &Doodle,
         doodle_list: &Vec<Doodle>,
     ) -> Vec<DoodleSimilarity> {
@@ -31,7 +31,7 @@ impl DoodleSimilarity {
 
     pub fn print_similar_doodle_list(doodle_list: Vec<Doodle>) {
         for (i, doodle) in doodle_list.clone().iter().enumerate() {
-            let similar_doodle_list = Self::create_similar_doodle_list(doodle, &doodle_list);
+            let similar_doodle_list = Self::find_similar_doodles_from_list(doodle, &doodle_list);
             if similar_doodle_list.len() > 0 {
                 println!("{}. Word: {}", i + 1, doodle.word);
                 for similar_doodle in similar_doodle_list {
@@ -39,5 +39,26 @@ impl DoodleSimilarity {
                 }
             }
         }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct SimilarDoodleCollection {
+    pub word: String,
+    pub similar_doodles: Vec<DoodleSimilarity>,
+}
+
+impl SimilarDoodleCollection {
+    pub fn new(doodles: Vec<Doodle>) -> Vec<SimilarDoodleCollection> {
+        let similar_doodle_collection = doodles
+            .iter()
+            .map(|doodle| SimilarDoodleCollection {
+                word: doodle.word.clone(),
+                similar_doodles: DoodleSimilarity::find_similar_doodles_from_list(doodle, &doodles),
+            })
+            .filter(|doodle_collection| doodle_collection.similar_doodles.len() > 0)
+            .collect();
+
+        similar_doodle_collection
     }
 }

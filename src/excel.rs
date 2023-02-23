@@ -38,7 +38,7 @@ impl Excel {
         println!("Which sheet from {} you want me to read?", workbook);
         let sheet = Self::request_sheet_input_from_workbook(&workbook);
 
-        println!("Workbook {} | Sheet {}", workbook, sheet);
+        println!("Workbook: {} | Sheet: {}", workbook, sheet);
         Self::new(workbook, sheet)
     }
 

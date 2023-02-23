@@ -41,6 +41,7 @@ impl Cli {
                 1 => Excel::read_excel_cli(),
                 2 => Doodle::check_encoding_cli(),
                 3 => Doodle::check_similarities_cli(),
+                4 => Doodle::check_similarities_and_clean_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
