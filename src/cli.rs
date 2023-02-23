@@ -10,7 +10,7 @@ pub const WELCOME_TEXTS: [&str; 7] = [
     "1. Read Excel Sheet",
     "2. Check Encoding",
     "3. Check words similarities (Levenshtein)",
-    "4. Check words similarities (Longest Common Subsequence)"
+    "4. Check words similarities and Clean Data"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
@@ -41,6 +41,7 @@ impl Cli {
                 1 => Excel::read_excel_cli(),
                 2 => Doodle::check_encoding_cli(),
                 3 => Doodle::check_similarities_cli(),
+                4 => Doodle::check_similarities_and_clean_cli(),
                 _ => {
                     eprintln!("Error: Max Input limit is {}!", INPUT_LIMIT);
                     Self::start_menu();
