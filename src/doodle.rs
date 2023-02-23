@@ -74,5 +74,8 @@ impl Doodle {
         for (i, similar_doodle) in similar_doodle_collection.iter().enumerate() {
             println!("{}. {:?}", i + 1, similar_doodle);
         }
+
+        // TODO:
+        println!("Which doodle u want to keep? (Please separate the number by comma)");
     }
 }
