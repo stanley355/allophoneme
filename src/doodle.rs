@@ -69,8 +69,6 @@ impl Doodle {
         let excel = Excel::read_excel_request();
         let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
-        // let doodle_similarity_list = DoodleSimilarity::create_doodle_similarity_list(target_doodle, doodle_list);
-        // DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
         let similar_doodle_collection = SimilarDoodleCollection::new(doodle_dataset);
 
         for (i, similar_doodle) in similar_doodle_collection.iter().enumerate() {
