@@ -58,7 +58,7 @@ impl Doodle {
         let excel = Excel::read_excel_request();
         let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
-        DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
+        DoodleSimilarity::print_similar_doodle_list(doodle_dataset);
     }
     
     pub fn check_similarities_and_clean_cli() {
@@ -67,6 +67,6 @@ impl Doodle {
         let doodle_dataset = Self::create_doodle_data_from_excel(excel);
 
         // let doodle_similarity_list = DoodleSimilarity::create_doodle_similarity_list(target_doodle, doodle_list);
-        DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
+        // DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
 }

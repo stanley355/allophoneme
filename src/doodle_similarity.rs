@@ -29,7 +29,7 @@ impl DoodleSimilarity {
         similar_doodle_list
     }
 
-    pub fn print_doodle_similarity_list(doodle_list: Vec<Doodle>) {
+    pub fn print_similar_doodle_list(doodle_list: Vec<Doodle>) {
         for (i, doodle) in doodle_list.clone().iter().enumerate() {
             let similar_doodle_list = Self::create_similar_doodle_list(doodle, &doodle_list);
             if similar_doodle_list.len() > 0 {
