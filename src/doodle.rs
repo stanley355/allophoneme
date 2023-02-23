@@ -60,4 +60,13 @@ impl Doodle {
 
         DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
     }
+    
+    pub fn check_similarities_and_clean_cli() {
+        println!("You chose {}", WELCOME_TEXTS[6]);
+        let excel = Excel::read_excel_request();
+        let doodle_dataset = Self::create_doodle_data_from_excel(excel);
+
+        // let doodle_similarity_list = DoodleSimilarity::create_doodle_similarity_list(target_doodle, doodle_list);
+        DoodleSimilarity::print_doodle_similarity_list(doodle_dataset);
+    }
 }

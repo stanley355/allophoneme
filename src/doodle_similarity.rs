@@ -7,11 +7,11 @@ pub struct DoodleSimilarity {
 }
 
 impl DoodleSimilarity {
-    fn create_doodle_similarity_list(
+    pub fn create_similar_doodle_list(
         target_doodle: &Doodle,
         doodle_list: &Vec<Doodle>,
     ) -> Vec<DoodleSimilarity> {
-        let doodle_similariy_list: Vec<DoodleSimilarity> = doodle_list
+        let similar_doodle_list: Vec<DoodleSimilarity> = doodle_list
             .iter()
             // .filter(|dood| dood.word.len() == target_doodle.word.len())  // Jambi research result is missing 2 results
             .map(|dood| DoodleSimilarity {
@@ -26,16 +26,16 @@ impl DoodleSimilarity {
             })
             .collect();
 
-        doodle_similariy_list
+        similar_doodle_list
     }
 
     pub fn print_doodle_similarity_list(doodle_list: Vec<Doodle>) {
         for (i, doodle) in doodle_list.clone().iter().enumerate() {
-            let doodle_similarity_list = Self::create_doodle_similarity_list(doodle, &doodle_list);
-            if doodle_similarity_list.len() > 0 {
+            let similar_doodle_list = Self::create_similar_doodle_list(doodle, &doodle_list);
+            if similar_doodle_list.len() > 0 {
                 println!("{}. Word: {}", i + 1, doodle.word);
-                for doodle_similarity in doodle_similarity_list {
-                    println!("-. {:?}", doodle_similarity)
+                for similar_doodle in similar_doodle_list {
+                    println!("-. {:?}", similar_doodle)
                 }
             }
         }

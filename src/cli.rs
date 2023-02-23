@@ -10,7 +10,7 @@ pub const WELCOME_TEXTS: [&str; 7] = [
     "1. Read Excel Sheet",
     "2. Check Encoding",
     "3. Check words similarities (Levenshtein)",
-    "4. Check words similarities (Longest Common Subsequence)"
+    "4. Check words similarities and Clean Data"
 ];
 const INPUT_LIMIT: usize = WELCOME_TEXTS.len() - 3;
 
