@@ -1,32 +1,20 @@
-mod cli;
-mod excel;
-mod levenshtein;
-mod constant;
-mod doodle;
-mod doodle_similarity;
+// mod cli;
+// mod excel;
+// mod levenshtein;
+// mod constant;
+// mod doodle;
+// mod doodle_similarity;
 
-use gtk4 as gtk;
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow};
+use gtk::{glib, Application};
+
+const APP_ID: &str = "org.gtk_rs.HelloWorld1";
 
 fn main() -> glib::ExitCode {
     // cli::Cli::start_menu();
-    let app = Application::builder()
-        .application_id("org.example.HelloWorld")
-        .build();
+    // Create a new application
+    let app = Application::builder().application_id(APP_ID).build();
 
-    app.connect_activate(|app| {
-        // We create the main window.
-        let window = ApplicationWindow::builder()
-            .application(app)
-            .default_width(320)
-            .default_height(200)
-            .title("Hello, World!")
-            .build();
-
-        // Show the window.
-        window.show();
-    });
-
+    // Run the application
     app.run()
 }

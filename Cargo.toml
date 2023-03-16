@@ -8,4 +8,3 @@ edition = "2021"
 [dependencies]
 calamine = "0.19.1"
 gtk = { version = "0.6.2", package = "gtk4", features = ["v4_10"] }
-gtk4 = "0.6.2"
